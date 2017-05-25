@@ -60,32 +60,39 @@ Let's go through each part of the sample file to understand it's content. The fo
 
 #### __Geographic ID__
 
-Most common: *s* (España), *e* (Europa), *w* (Mundo).
+Most common: __*s*__ (España), __*e*__ (Europa), __*w*__ (Mundo).
 
 #### __Reference Dystem ID__
 
-Examples: e89 stands for ETRS89 and w84 for WGS84. 
+Values: __*e89*__ stands for ETRS89 and __*w84*__ for WGS84. 
 
 #### __Scale ID__
 
 Usually indicated in units of million for shapefiles.  
 
-Values - *6m5*- 1:6.500.000;  *3* - 1:3.000.000
+Values : __*3*__ - 1:3.000.000, __*6m5*__ - 1:6.500.000;  __*10*__ - 1:10.000.000; __*14*__ - 1:14.000.000; __*60*__ - 1:60.000.000
 
 #### __Internal Thematic Classifier ID__
 
-Values: *admin*,*hidro*,*urban*,*vias*,*orog*
-See other possible values in the file: tematica_ane_permanente.dbf
+Values: __*admin*__, __*hidro*__ , __*urban*__ , __*vias*__ , __*orog*__
+
+__*admin*__ : Administrative territory
+__*hidro*__ : Hydrography  
+__*urban*__ : Human settlements  
+__*vias*__  : Communication(Streets,railways etc)  
+__*orog*__  : Orography  
+
 
 
 #### __Class entity ID__
 
-Identifier of the represented data.  
+Identifier of the represented data. Basically, we are going to handle these three entitties.
 Values: __*ccaa*__, __*prov*__, __*muni*__  
 
 __*ccaa*__ : Comunidades Autónomas(Spanish autonomous communities)  
 __*prov*__ : Provincias(Provinces)  
 __*muni*__ : Municipios(Municipalities)
+
 
 
 #### __Geometry ID__.
