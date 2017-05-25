@@ -87,7 +87,7 @@ __*orog*__  : Orography
 #### __Class entity ID__
 
 Identifier of the represented data. Basically, we are going to handle these three entitties.
-Values: __*ccaa*__, __*prov*__, __*muni*__  
+Values: __*ccaa*__, __*prov*__, __*muni*__, __*capital*__, __*pais*__, __*paismar*__, __*capitene*__
 
 __*ccaa*__ : Comunidades Autónomas(Spanish autonomous communities)  
 __*prov*__ : Provincias(Provinces)  
