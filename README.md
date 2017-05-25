@@ -74,24 +74,28 @@ Values - *6m5*- 1:6.500.000;  *3* - 1:3.000.000
 
 #### __Internal Thematic Classifier ID__
 
-For example: *admin*,*hidro*,*urban*,*vias*,*orog*
+Values: *admin*,*hidro*,*urban*,*vias*,*orog*
 See other possible values in the file: tematica_ane_permanente.dbf
 
 
 #### __Class entity ID__
 
 Identifier of the represented data.  
-Example: *ccaa*, *prov*, *muni*  .Comunidades Autónomas(Spanish autonomous communities),Provincias(Provinces),Municipios(Municipalities)
+Values: __*ccaa*__, __*prov*__, __*muni*__  
+
+__*ccaa*__ : Comunidades Autónomas(Spanish autonomous communities)  
+__*prov*__ : Provincias(Provinces)  
+__*muni*__ : Municipios(Municipalities)
 
 
 #### __Geometry ID__.
 
-Values - *p*: dot; *l*: line; *a*: area (polygons)
+Values - __*p*__ : dot; __*l*__: line; __*a*__ : area (polygons)
 
 #### __Auxiliar ID(Optional)__
 
 Generally identifies the geographical area for individual treatment of the data in different projections.
 
-Values - *x*: Península and Baleares;  *y*: Canarias
+Values - __*x*__ : Península and Baleares;  __*y*__ : Canarias
 
 
