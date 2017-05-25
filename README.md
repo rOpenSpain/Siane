@@ -84,14 +84,14 @@ Identifier of the represented data.
 Example: *ccaa*, *prov*, *muni*  .Comunidades Autónomas(Spanish autonomous communities),Provincias(Provinces),Municipios(Municipalities)
 
 
-#### __Tipo de geometría ID__.
+#### __Geometry ID__.
 
-Values - *p*: dot: *l*: line: *a*: area (polygons)
+Values - *p*: dot; *l*: line; *a*: area (polygons)
 
 #### __Auxiliar ID(Optional)__
 
 Generally identifies the geographical area for individual treatment of the data in different projections.
 
-Values - *x*: Península y Baleares;  *y*: Canarias
+Values - *x*: Península and Baleares;  *y*: Canarias
 
 
