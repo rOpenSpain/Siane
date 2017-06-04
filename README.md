@@ -9,11 +9,11 @@ First let's find out how to download how to download the maps and the data.
 
 [SIANE](http://centrodedescargas.cnig.es/CentroDescargas/catalogo.do?Serie=CAANE#selectedSerie) maps can be downloaded in this website. 
 Scroll down to the bottom of the page and click in the highlighted button.  
-![Please click in the download button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_1.png)  
-![You will get into in a new website. The next step is to click in __"Buscar por polígono"__](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_2.png)  
+Please click in the download button(https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_1.png)  
+You will get into in a new website. The next step is to click in __"Buscar por polígono"__(https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_2.png)  
 Once you get there, draw a triangle in the surface of the map. It just has to be a closed polygon. A simple triangle will do it.
-![Now unlist all the products by clicking on the  "+" button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png)  
-![In this package we are using *"SIANE_CARTO_BASE_S_3M"* maps. Download these maps.The download should begin inmediately.](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png)  
+Now unlist all the products by clicking on the  "+" button(https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png)  
+In this package we are using *"SIANE_CARTO_BASE_S_3M"* maps. Download these maps.The download should begin inmediately.(https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png)  
 
 
 ## Ine data
