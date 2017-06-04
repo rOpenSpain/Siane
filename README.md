@@ -7,20 +7,21 @@ First let's find out how to download how to download the maps and the data.
 
 ## Siane Maps
 
-[SIANE](http://centrodedescargas.cnig.es/CentroDescargas/catalogo.do?Serie=CAANE#selectedSerie) maps can be downloaded in this website. 
+[SIANE](http://centrodedescargas.cnig.es/CentroDescargas/catalogo.do?Serie=CAANE#selectedSerie) maps can be downloaded in this website.  
 Scroll down to the bottom of the page and click in the highlighted button.  
-![Please click in the download button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_1.png)  
-![You will get into in a new website. The next step is to click in __"Buscar por polígono"__](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_2.png)  
+![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_1.png)  
+You will get into in a new website. The next step is to click in __"Buscar por polígono"__![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_2.png)  
 Once you get there, draw a triangle in the surface of the map. It just has to be a closed polygon. A simple triangle will do it.
-![Now unlist all the products by clicking on the  "+" button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png)  
-![In this package we are using *"SIANE_CARTO_BASE_S_3M"* maps. Download these maps.The download should begin inmediately.](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png)  
+Now unlist all the products by clicking on the  "+" button.  
+![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png)  
+In this package we are using *"SIANE_CARTO_BASE_S_3M"* maps. Download these maps.The download should begin inmediately.![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png)  
 
 
 ## Ine data
 
 As I already explained, siane maps are only compatible with [INE data](http://www.ine.es/) in the pc-axis format. I am going to download a pc-axis file from the INE database and show you how to do it.
 In this demonstration we will plot the municipalities population of[__La Rioja__](http://www.ine.es/jaxiT3/Tabla.htm?t=2879).   
-![Click in the button in the right side of the webpage and choose Pc-Axis format.](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_6.png)  
+Click in the button in the right side of the webpage and choose Pc-Axis format.![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_6.png)  
 
 Now we are ready to go through the code.
 
