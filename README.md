@@ -6,17 +6,25 @@ The aim of this package is to create useful functions that plot INE's data on po
 
 [SIANE maps](http://centrodedescargas.cnig.es/CentroDescargas/catalogo.do?Serie=CAANE#selectedSerie) can be downloaded in this website. 
 Go to the bottom of the page and 
-![click in the download button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_1.png)
-You will enter in a new website. The next step is to click in __"Buscar por polígono"__.
-![click ](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_2.png).
-Then, draw a triangle in the surface of the map.
-![It just has to be closed polygon, no matter where](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_3.png).
+![Please click in the download button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_1.png)
 
-![Unlist all the products by clicking on the  "+" button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png).
+![You will enter in a new website. The next step is to click in __"Buscar por polígono"__](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_2.png)
+Then, draw a triangle in the surface of the map. It just has to be a closed polygon.
+A simple triangle will do it.
 
-In this package we are using *"SIANE_CARTO_BASE_S_3M"*
+![Unlist all the products by clicking on the  "+" button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png)
 
-![It just has to be closed polygon, no matter where](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png).
+![In this package we are using *"SIANE_CARTO_BASE_S_3M"*. Download these maps](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png)
+
+The download should begin inmediately.
+
+
+'''
+
+library(devtools)
+install_github("Nuniemis/Siane")
+
+'''
 
 
 
