@@ -1,9 +1,15 @@
-Package: SianeMaps
-Title: Mapas de polígonos de estadística nacional
+Package: Siane
+Title: Spanish statistic data plots
 Version: 0.1
-Authors@R: Nuno, Carlos
-Description: Paquete que facilita la representación de datos georeferenciados 
+Description: Map plotting of spanish political territories
 Depends: R (>= 3.3.2)
-License: 
+License: MIT
 Encoding: UTF-8
 LazyData: true
+Authors@R: c(person("Nuno", "Carvalho", role = c("aut", "cre"),
+                     email = "nunocarvalhodossantos@gmail.com"),
+              person("Carlos"))
+Author: Nuno [aut, cre],
+  Carlos [aut],
+  A. User [ctb]
+Maintainer: Joe Developer <Joe.Developer@some.domain.net>
