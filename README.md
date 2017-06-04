@@ -20,8 +20,8 @@ In this package we are using *"SIANE_CARTO_BASE_S_3M"* maps. Download these maps
 ## Ine data
 
 As I already explained, siane maps are only compatible with [INE data](http://www.ine.es/) in the pc-axis format. I am going to download a pc-axis file from the INE database and show you how to do it.
-In this demonstration we will plot the municipalities population of[__La Rioja__](http://www.ine.es/jaxiT3/Tabla.htm?t=2879).   
-Click in the button in the right side of the webpage and choose Pc-Axis format.![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_6.png)  
+In this demonstration we will plot the population of the municipalities of [__La Rioja__](http://www.ine.es/jaxiT3/Tabla.htm?t=2879).   
+Click in the button in the right side of the webpage and choose Pc-Axis format.![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_6.PNG)  
 
 Now we are ready to go through the code.
 
@@ -41,10 +41,10 @@ obj <- register_siane("/Users/Nuniemsis/Desktop/SIANE_CARTO_BASE_S_3M/")
 
 There are plenty of maps in our cartographic data. The user has to set a filter to get a specific map.  
 I am listing all the choices you can make:
-There are three levels of territories: __"Comunidades"__, __"Provincias"__ and __"Municipios"__ accepted in the parameter *__level__*.
-You can choose to have the Canarias maps or the peninsulae maps.
+There are three levels of territories: __"Comunidades"__, __"Provincias"__ and __"Municipios"__ accepted in the parameter *__level__*.  
+You can choose to receive the Canarias maps or the peninsulae maps. To get Canarias maps set __canarias__ to *FALSE*.
 Maps are not immutable. Municipalities are constantly changing. The third parameter *__year__* let's the user ask for a map of that year.
-The map
+
 
 ```
 level <- "municipios"
