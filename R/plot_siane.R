@@ -1,13 +1,8 @@
-library(RColorBrewer)
-library(maptools)
-library(rgdal)
-library(RColorBrewer)
 
-
-plot_siane <- function(shp, path, subsetvars, pallete_colour, n, style){
+plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style){
   
   
-  px_ine <- read_ine(path) # Read in pc-axis formar
+  px_ine <- read_ine(ine_path) # Read in pc-axis formar
   df_ine <- read_ine_df(px_ine) # From pc-axis to dataframe
   
   df_ine_level <- get_level_ine(px_ine) # Fetching the territory name from the pc-axis file
@@ -30,7 +25,8 @@ plot_siane <- function(shp, path, subsetvars, pallete_colour, n, style){
   colors <- brewer.pal(n, pallete_colour) # brks
   col <- colors[findInterval(values_ine, my_pallete, all.inside=TRUE)] # Final colors
   
-  plot(shp,col) # Plot the map
+  plot(shp, col = col) # Plot the map
+  
   build_title(px_ine) # Get the title from the pc-axis object
   make_legend(my_pallete,colors) # Make the legend with maptools
 }

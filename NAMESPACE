@@ -3,6 +3,7 @@ importFrom("RColorBrewer", brewer.pal)
 importFrom("plyr", join)
 importFrom("rgdal", readOGR)
 importFrom("maptools", leglabs)
+importFrom("pxR", read.px)
 
 export(get_siane_map)
 export(register_siane)
