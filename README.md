@@ -20,10 +20,8 @@ The download should begin inmediately.
 
 
 '''
-
-library(devtools)
+library(devtools)  
 install_github("Nuniemis/Siane")
-
 '''
 
 
