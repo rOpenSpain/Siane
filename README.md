@@ -8,15 +8,15 @@ The aim of this package is to create useful functions that plot INE's data on po
 Go to the bottom of the page and 
 ![click in the download button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_1.png)
 You will enter in a new website. The next step is to click in __"Buscar por polígono"__.
-![click ](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image2_.png).
+![click ](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_2.png).
 Then, draw a triangle in the surface of the map.
-![It just has to be closed polygon, no matter where](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image3_.png).
+![It just has to be closed polygon, no matter where](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_3.png).
 
-![Unlist all the products by clicking on the  "+" button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image4_.png).
+![Unlist all the products by clicking on the  "+" button](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png).
 
 In this package we are using *"SIANE_CARTO_BASE_S_3M"*
 
-![It just has to be closed polygon, no matter where](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image5_.png).
+![It just has to be closed polygon, no matter where](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png).
 
 
 
