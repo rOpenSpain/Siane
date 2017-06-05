@@ -1,7 +1,7 @@
 Package: Siane
 Title: Spanish statistic data plots
 Version: 0.1
-Description: Map plotting of spanish political territories
+Description: Plots of spanish data polygons
 Depends: R (>= 3.3.1)
 License: MIT
 Encoding: UTF-8
@@ -11,5 +11,5 @@ Authors@R: c(person("Nuno", "Carvalho", role = c("aut", "cre"),
               person("Carlos"))
 Author: Nuno [aut, cre],
   Carlos [aut],
-  A. User [ctb]
-Maintainer: Joe Developer <Joe.Developer@some.domain.net>
+Maintainer: Nuno Carvalho <nunocarvalhodossantos@gmail.com>
+RoxygenNote: 6.0.1

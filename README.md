@@ -10,11 +10,16 @@ Before running the code let's first find out how to download the maps and the da
 Siane maps can be downloaded in [this website](http://centrodedescargas.cnig.es/CentroDescargas/catalogo.do?Serie=CAANE#selectedSerie).  
 Scroll down to the bottom of the page and click in the highlighted button.  
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_1.png)  
+
 You will get into in a new website. The next step is to click in __"Buscar por polígono"__![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_2.png)  
 Once you get here, draw a triangle in the surface of the map. It just has to be a closed polygon. A simple triangle will do it.
 Now unlist all the products by clicking on the  "+" button.  
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png)  
+
+
 In this package we are using *"SIANE_CARTO_BASE_S_3M"* maps. Download these maps. The download should begin inmediately.![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png)  
+
+
 
 
 ## Ine 

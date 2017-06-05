@@ -1,4 +1,24 @@
 
+#' @importFrom "pxR" read.px
+#' @importFrom "maptools" leglabs
+#' @importFrom "RColorBrewer" brewer.pal
+#' @importFrom "plyr" join
+#' @importFrom "classInt" classIntervals
+#' @export
+#' 
+#' 
+#' @title plot_siane
+#' 
+#' @description This is a function that plots coloured polygons of the territories over the map.
+#' 
+#' 
+#' @param shp : Is the shapefile return by the /code{get_siane_map} function.
+#' @param inepath : The path of the Ine Data we want to plot.
+#' @param subsetvars : A vector of expressions. These expresions have to define univocally the values that we are plotting.
+#' @param pallete_colour : A pallete_colour of the RColorBrewer package. It is a parameter from the /code{RColorBrewer::brewer.pal} function
+#' @param n : The number of breaks in the pallete. It is a parameter from the /code{classInt::classIntervals} function
+#' @param style : The way the breaks are numerically distributed. It is a parameter from the /code{classInt::classIntervals} function
+
 plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style){
   
   
