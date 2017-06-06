@@ -1,6 +1,7 @@
 
 #' @importFrom "pxR" read.px
-#' @importFrom "maptools" leglabs
+#' @import maptools
+#' @import rgdal
 #' @importFrom "RColorBrewer" brewer.pal
 #' @importFrom "plyr" join
 #' @importFrom "classInt" classIntervals

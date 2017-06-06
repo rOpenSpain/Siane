@@ -13,3 +13,6 @@ Author: Nuno [aut, cre],
   Carlos [aut],
 Maintainer: Nuno Carvalho <nunocarvalhodossantos@gmail.com>
 RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

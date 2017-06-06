@@ -1,0 +1,92 @@
+---
+title: "Siane"
+author: "Nuno Carvalho dos Santos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In this document I will describe and make use of the main functions of this package. The first step is to load the package.
+
+```{r,warning=FALSE,message=FALSE}
+library(Siane)
+library(rgdal)
+library(pxR)
+```
+
+## Register Siane
+
+Siane extracts a map from a set of maps stored in a folder. Siane needs to know the path of this folder in order to search the requested map.
+
+```{r}
+obj <- register_siane("/Users/nunoc/Desktop/siane/SIANE_CARTO_BASE_S_3M/SIANE_CARTO_BASE_S_3M/")
+```
+
+## Get a Siane map
+
+Once we have located all the maps we can select one according with our data.
+These parameters are enough to specify a map.  
+  - `year` : Maps change over time. By now, The territories affected by the changes are just the municipalities(Municipios).  
+  - `canarias` : It indicates whether we want to plot Canarias or not.  
+  - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".    
+
+```{r}
+level <- "Municipios"
+canarias <- FALSE
+year <- 2016
+```
+
+Now we call the `get_siane_map` function to receive a S4 object.
+
+```{r}
+shp <- get_siane_map(obj = obj, level = 'muni', year = 2016, canarias = FALSE)
+```
+
+Did it worked?
+
+```{r,fig.show='hold'}
+plot(shp)
+```
+
+The spanish political map looks just like this.  Let's try to plot some data on it. To keep following this tutorial you should download previously the data from the INE website. The README.md file explains how to download it.
+
+## Polygon plot
+
+Set the path of the INE data file. It should be in the pc-axis format.
+```{r}
+ine_path <- "/Users/nunoc/Downloads/2879.px"
+```
+
+Let's explore the dataset before plotting the data
+```{r}
+df_ine <- as.data.frame(read.px(ine_path))
+names(df_ine)
+```
+In this dataset there is only one value per territory. If we had more than one value per territory this expression would be much more useful.
+`subsetvars` is a vector of strings. Each string is an equation. In each equation we should place at the left side the column we want to filter and in it's right side the filter value.
+```{r}
+subsetvars <- c("Sexo = Total","Periodo = 2016")
+```
+
+These are the basic options to make the plot.
+- `n` is the number of breaks
+- `pallete_colour` is a RColorBrewer colour pallete 
+- `style` is a string that indicates the distribution of the bins
+
+```{r}
+pallete_colour <- "OrRd"
+n <- 9 
+style <- "quantile"
+```
+
+Plot
+```{r, fig.show='hold'}
+plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
+```
+
+
+
+
