@@ -39,8 +39,9 @@ Download and install the package.
 
 ```
 library(devtools)
-library(rgdal)
 install_github("Nuniemsis/Siane")
+library(Siane)
+library(sp)
 ```
 It is necessary to specify the path in which the maps are located.   
 The __obj__ variable should contain the path of the maps we are using. 

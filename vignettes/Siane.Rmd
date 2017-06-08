@@ -9,13 +9,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-In this document I will describe and make use of the main functions of this package. The first step is to load the package.
+In this document I will describe and make use of the main functions of this package. The first step is to load the package. Uncomment the first two lines of code in case you haven't installed the package.
 
 
 ```{r, warning = FALSE, message = FALSE}
+#library(devtools)
+#install_github("Nuniemsis/Siane")
 library(Siane)
 library(sp)
-library(pxR)
 ```
 
 ## Register Siane
