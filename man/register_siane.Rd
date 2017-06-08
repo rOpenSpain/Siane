@@ -7,7 +7,7 @@
 register_siane(path)
 }
 \arguments{
-\item{path}{: The path of the maps at it's highest herarchical level}
+\item{path}{: The path of the maps at it's highest hierarchical level}
 }
 \description{
 A function that helps loading the path of Siane maps

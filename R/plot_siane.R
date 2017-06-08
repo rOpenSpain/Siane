@@ -1,12 +1,11 @@
-
 #' @importFrom "pxR" read.px
-#' @import maptools
-#' @import rgdal
+#' @importFrom "maptools"  leglabs
+#' @importFrom "rgdal" readOGR
+#' @importFrom "sp" plot
 #' @importFrom "RColorBrewer" brewer.pal
 #' @importFrom "plyr" join
 #' @importFrom "classInt" classIntervals
-#' @export
-#' 
+
 #' 
 #' @title plot_siane
 #' 
@@ -19,6 +18,9 @@
 #' @param pallete_colour : A pallete_colour of the RColorBrewer package. It is a parameter from the /code{RColorBrewer::brewer.pal} function
 #' @param n : The number of breaks in the pallete. It is a parameter from the /code{classInt::classIntervals} function
 #' @param style : The way the breaks are numerically distributed. It is a parameter from the /code{classInt::classIntervals} function
+
+#' @export
+
 
 plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style){
   
@@ -42,12 +44,13 @@ plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style){
   
   values_ine <- shp@data$value # We need the values to calculate the colors
   
-  my_pallete <- brks_color(n, pallete_colour, values_ine, style) # Palette
+  my_pallete <- brks_color(n, pallete_colour,
+                           values_ine, style) # Palette
   colors <- brewer.pal(n, pallete_colour) # brks
-  col <- colors[findInterval(values_ine, my_pallete, all.inside=TRUE)] # Final colors
+  col <- colors[findInterval(values_ine, my_pallete,
+                             all.inside=TRUE)] # Final colors
   
-  plot(shp, col = col) # Plot the map
-  
+  sp::plot(shp,col = col) # Plot the map
   build_title(px_ine) # Get the title from the pc-axis object
   make_legend(my_pallete,colors) # Make the legend with maptools
 }

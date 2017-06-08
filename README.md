@@ -101,7 +101,36 @@ After running __plot_siane__ function, the data will be plotted over the polygon
 plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
 ```
 
+Let's suppose you don't know how to set the `subsetvars` parameter because you still haven't explored the data yet. The following function creates a random filter which could be introduced again as a parameter in `plot_siane`.
 
+```{r}
+ine_path <- "/Users/nunoc/Downloads/2852.px"
+```
 
+Let's try with a different [dataset](http://www.ine.es/jaxiT3/Tabla.htm?t=2852&L=0). This dataset has the spanish population for all the provinces.You can find the link in the README.MD file as well. 
 
+```{r}
+subsetvars <- suggest_subset(ine_path)
+```
 
+Remember that first we have to create the shapefile. We can't use the previous shapefile provided that the level has changed.
+
+```{r}
+level <- "Provincias"
+```
+
+Generate the map again.
+
+```{r}
+shp <- get_siane_map(obj,level,year,canarias)
+```
+
+Plot the map.
+
+```{r}
+pallete_colour <- "BuPu"
+n <- 5
+style <- "quantile"
+
+plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
+```
