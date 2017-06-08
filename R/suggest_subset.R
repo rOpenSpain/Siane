@@ -6,6 +6,9 @@
 
 #' @param path_ine : Is the path of the INE pc-axis file.
 #' 
+#' 
+#' @return Returns a vector of the filtering variable for the INE dataframe.
+#' 
 #' @export
 
 suggest_subset <- function(path_ine){

@@ -20,12 +20,11 @@
 #' @param style : The way the breaks are numerically distributed. It is a parameter from the /code{classInt::classIntervals} function
 #' @param siane_title : It's the title of the plot
 
+
 #' @export
 
 
 plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style, siane_title){
-  
-  
   px_ine <- read_ine(ine_path) # Read in pc-axis formar
   df_ine <- read_ine_df(px_ine) # From pc-axis to dataframe
   
@@ -45,11 +44,12 @@ plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style, sian
   
   values_ine <- shp@data$value # We need the values to calculate the colors
   
+  colors <- brewer.pal(n, pallete_colour) # pallete
   my_pallete <- brks_color(n, pallete_colour,
-                           values_ine, style) # Palette
-  colors <- brewer.pal(n, pallete_colour) # brks
+                           values_ine, style) # breaks of the pallete 
+  
   col <- colors[findInterval(values_ine, my_pallete,
-                             all.inside=TRUE)] # Final colors
+                             all.inside=TRUE)] # Setting the final colors
   
   sp::plot(shp,col = col) # Plot the map
   
