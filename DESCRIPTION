@@ -1,14 +1,14 @@
 Package: Siane
-Title: Spanish statistic data plots
+Title: Siane
 Version: 0.1
-Description: Plots of spanish data polygons
+Description: Statistic polygon plots of INE data 
 Depends: R (>= 3.3.1)
 License: MIT
 Encoding: UTF-8
 LazyData: true
 Authors@R: c(person("Nuno", "Carvalho", role = c("aut", "cre"),
                      email = "nunocarvalhodossantos@gmail.com"),
-              person("Carlos"))
+              person("Carlos J. Gil Bellosta"))
 Author: Nuno [aut, cre],
   Carlos [aut],
 Maintainer: Nuno Carvalho <nunocarvalhodossantos@gmail.com>

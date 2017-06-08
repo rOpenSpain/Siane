@@ -51,7 +51,7 @@ Did it worked?
 sp::plot(shp)
 ```
 
-The spanish political map looks just like this.  Let's try to plot some data on it. To keep following this tutorial you should download previously the data from the INE website. The README.md file explains how to download it.[Link here](http://www.ine.es/jaxiT3/Tabla.htm?t=2879)
+The spanish political map looks just like this.  Let's try to plot some data on it. To keep following this tutorial you should download previously the data from the INE website. The README.md file explains how to download it. I will also share the [link](http://www.ine.es/jaxiT3/Tabla.htm?t=2879) here in case you already now how to do it.
 
 ## Polygon plot
 
