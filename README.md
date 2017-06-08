@@ -119,9 +119,9 @@ Remember that first we have to create the shapefile. We can't use the previous s
 level <- "Provincias"
 ```
 
-Generate the map again.
+Generate the map again.  
 
-```{r}
+```{r, message = FALSE}
 shp <- get_siane_map(obj,level,year,canarias)
 ```
 
@@ -130,7 +130,8 @@ Plot the map.
 ```{r}
 pallete_colour <- "BuPu"
 n <- 5
-style <- "quantile"
+style <- "kmeans"
+siane_title <- "My Title"
 
-plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
+plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style, siane_title)
 ```

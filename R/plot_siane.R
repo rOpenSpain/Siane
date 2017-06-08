@@ -18,11 +18,12 @@
 #' @param pallete_colour : A pallete_colour of the RColorBrewer package. It is a parameter from the /code{RColorBrewer::brewer.pal} function
 #' @param n : The number of breaks in the pallete. It is a parameter from the /code{classInt::classIntervals} function
 #' @param style : The way the breaks are numerically distributed. It is a parameter from the /code{classInt::classIntervals} function
+#' @param siane_title : It's the title of the plot
 
 #' @export
 
 
-plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style){
+plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style, siane_title){
   
   
   px_ine <- read_ine(ine_path) # Read in pc-axis formar
@@ -51,7 +52,8 @@ plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style){
                              all.inside=TRUE)] # Final colors
   
   sp::plot(shp,col = col) # Plot the map
-  build_title(px_ine) # Get the title from the pc-axis object
+  
+  build_title(px_ine, siane_title) # Get the title from the pc-axis object
   make_legend(my_pallete,colors) # Make the legend with maptools
 }
 

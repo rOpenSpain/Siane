@@ -11,7 +11,8 @@ vignette: >
 
 In this document I will describe and make use of the main functions of this package. The first step is to load the package.
 
-```{r,warning=FALSE,message=FALSE}
+
+```{r, warning = FALSE, message = FALSE}
 library(Siane)
 library(sp)
 library(pxR)
@@ -47,7 +48,7 @@ shp <- get_siane_map(obj = obj, level = 'muni', year = 2016, canarias = FALSE)
 
 Did it worked?
 
-```{r,fig.show='hold'}
+```{r,fig.show='hold', fig.width = 5, fig.height = 5}
 sp::plot(shp)
 ```
 
@@ -68,7 +69,7 @@ names(df_ine)
 In this dataset there is only one value per territory. If we had more than one value per territory this expression would be much more useful.
 `subsetvars` is a vector of strings. Each string is an equation. In each equation we should place at the left side the column we want to filter and in it's right side the filter value.
 ```{r}
-subsetvars <- c("Sexo = Total","Periodo = 2016")
+subsetvars <- c("Sexo = Total", "Periodo = 2016")
 ```
 
 These are the basic options to make the plot.
@@ -83,7 +84,7 @@ style <- "quantile"
 ```
 
 Plot
-```{r, fig.show='hold'}
+```{r, fig.show='hold', fig.width=6, fig.height=6}
 plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
 ```
 
@@ -105,15 +106,20 @@ Remember that first we have to create the shapefile. We can't use the previous s
 level <- "Provincias"
 ```
 
-```{r}
+Generate the map again.  
+
+```{r, message = FALSE}
 shp <- get_siane_map(obj,level,year,canarias)
 ```
-```{r}
+Plot the map.
+
+```{r, fig.width = 5, fig.height = 5}
 pallete_colour <- "BuPu"
 n <- 5
-style <- "quantile"
+style <- "kmeans"
+siane_title <- "My Title"
 
-plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
+plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style, siane_title)
 ```
 
 
