@@ -15,6 +15,7 @@ In this document I will describe and make use of the main functions of this pack
 ```{r, warning = FALSE, message = FALSE}
 #library(devtools)
 #install_github("Nuniemsis/Siane")
+library(pxR)
 library(Siane)
 library(sp)
 ```

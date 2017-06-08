@@ -40,6 +40,7 @@ Download and install the package.
 ```
 library(devtools)
 install_github("Nuniemsis/Siane")
+library(pxR)
 library(Siane)
 library(sp)
 ```
