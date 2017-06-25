@@ -219,7 +219,7 @@ Other parameters:
 
 - `x` : Is the position of the legend
 
-There are also additional parameters that affect the legend function.
+There are also additional parameters that affect the legend function. Check `?legend` for more information.
 
 ```
 pallete_colour <- "BuPu"
