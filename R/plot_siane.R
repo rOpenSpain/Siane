@@ -1,11 +1,10 @@
-#' @importFrom "pxR" read.px
 #' @importFrom "maptools"  leglabs
 #' @importFrom "rgdal" readOGR
-#' @importFrom "sp" plot
 #' @importFrom "RColorBrewer" brewer.pal
 #' @importFrom "plyr" join
 #' @importFrom "classInt" classIntervals
-
+#' @importFrom "raster" plot
+#' 
 #' 
 #' @title plot_siane
 #' 
@@ -13,47 +12,65 @@
 #' 
 #' 
 #' @param shp : Is the shapefile return by the /code{get_siane_map} function.
-#' @param inepath : The path of the Ine Data we want to plot.
-#' @param subsetvars : A vector of expressions. These expresions have to define univocally the values that we are plotting.
+#' @param df : The name of the data frame with the data we want to plot
+#' @param by : The name of the column that contains the ID's of the territories. 
+#' @param level : The level of the territory: "Municipios", "Provincias", "Comunidades"
+#' @param value : A vector of expressions. These expresions have to define univocally the values that we are plotting.
 #' @param pallete_colour : A pallete_colour of the RColorBrewer package. It is a parameter from the /code{RColorBrewer::brewer.pal} function
 #' @param n : The number of breaks in the pallete. It is a parameter from the /code{classInt::classIntervals} function
 #' @param style : The way the breaks are numerically distributed. It is a parameter from the /code{classInt::classIntervals} function
-#' @param siane_title : It's the title of the plot
-
+#' @param title : It's the title of the plot
 
 #' @export
 
 
-plot_siane <- function(shp, ine_path, subsetvars, pallete_colour, n, style, siane_title){
-  px_ine <- read_ine(ine_path) # Read in pc-axis formar
-  df_ine <- read_ine_df(px_ine) # From pc-axis to dataframe
+plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, title, x, ...){
+  if((by %in% names(df)) == FALSE){ # Checking if the ID's column is in the dataframe
+    stop(paste0("The column ",by," is not in the data frame. Try to run names(df) to check the data frame column names"))
+  }
+  if((value %in% names(df)) == FALSE){ # Checking if the ID's column is in the dataframe
+    stop(paste0("The column ",value," is not in the data frame. Try to run names(df) to check the data frame column names"))
+  }
+  if(missing(title)){
+    title <- ""
+  }
+  if(missing(pallete_colour)){
+    pallete_colour <- "OrRd" # Orange and Red as the default colours for the pallete
+  }
+  if(missing(style)){
+    style <- "quantile" # quantile style as the deafult one
+  }
+  if(missing(n)){
+    n <- 5 # 5 default colour intervals
+  }
+  if(missing(x)){
+    x <- "bottomright"
+  }
   
-  df_ine_level <- get_level_ine(px_ine) # Fetching the territory name from the pc-axis file
+
   
-  id <- generate_id(df_ine_level) # Get the name of the variable in the pc-axis file
-  df_ine <- get_code_area(df_ine, df_ine_level, id) # Get the code of the territory
+  shp_code <- get_shp_code(level) # The shape file column that contains the code depends on the level  
   
+  name_filter <- names(df) == by 
+  names(df)[name_filter] <- shp_code # Changing the column name to make the join
+  shp@data <- join(shp@data, df)  # Join data and shape object
   
-  df_ine <- filter_params(df_ine,subsetvars) # filter the data frame
+  # Attention: Using plyr join because it doesn't change the data frame order.
+  # base::merge function does disorder the data frame 
   
-  shp@data <- join(shp@data, df_ine)  # Join data and shape object
+  values_ine_filter <- shp@data[[value]] # Extract ine values
+  filter_map <- which(is.na(values_ine_filter)==FALSE) # Making the filter 
+  shp<- shp[filter_map, ] # Filtering the map
+  values_ine <- shp@data[[value]] # Values we want to plot are stored in the shape@data data frame
   
-  values_ine_filter <- shp@data$value # Extract ine values
-  filter_map <- which(is.na(values_ine_filter)==FALSE) # make the filter 
-  shp<- shp[filter_map, ] # Filtering
-  
-  values_ine <- shp@data$value # We need the values to calculate the colors
-  
-  colors <- brewer.pal(n, pallete_colour) # pallete
+  colors <- brewer.pal(n, pallete_colour) # A pallete from RColorBrewer 
   my_pallete <- brks_color(n, pallete_colour,
                            values_ine, style) # breaks of the pallete 
-  
   col <- colors[findInterval(values_ine, my_pallete,
                              all.inside=TRUE)] # Setting the final colors
-  
-  sp::plot(shp,col = col) # Plot the map
-  
-  build_title(px_ine, siane_title) # Get the title from the pc-axis object
-  make_legend(my_pallete,colors) # Make the legend with maptools
-}
 
+  raster::plot(shp,col = col) # Plot the map
+  title(title) # Write the title
+  legend(legend = leglabs(round(my_pallete)),fill = colors,x = x, ...) # Make the legend
+  
+}

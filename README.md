@@ -20,14 +20,15 @@ Now unlist all the products by clicking on the  "+" button.
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_4.png)  
 
 
-In this package we are using *"SIANE_CARTO_BASE_S_3M"* maps. Download these maps. The download should begin inmediately.![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png)  
+In this package we are using *"SIANE_CARTO_BASE_S_3M"* and *"SIANE_CARTO_BASE_S_6M5"* maps. Download these maps. The download should begin inmediately.![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_5.png)    
 
 
+Make sure you unzip the folders in the same directory. Siane should have access to both folders in order to get the maps. For instance, my folders(*"SIANE_CARTO_BASE_S_3M"* and *"SIANE_CARTO_BASE_S_6M5"*) are stored in __"/Users/nunoc/Desktop/siane"__. It is important that folder and file names remain the same as in the original download. Please, don't change them.
 
 
 ## Ine 
 
-As I already explained, siane maps are only compatible with [INE data](http://www.ine.es/) in the pc-axis format. I am going to download a pc-axis file from the INE database and show you how to do it.
+Siane maps are very useful because they have compatible territory codes with [INE data](http://www.ine.es/). I am going to download a pc-axis file from the INE database and show you how to plot it's data.
 In this demonstration we will plot the population of the municipalities of [__La Rioja__](http://www.ine.es/jaxiT3/Tabla.htm?t=2879).   
 Click in the button in the right side of the webpage and choose Pc-Axis format.![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_6.PNG)  
 
@@ -35,105 +36,207 @@ Now we are ready to go through the code.
 
 ## Code 
 
-Download and install the package.
+#### Download and install the package.
 
 ```
 library(devtools)
 install_github("Nuniemsis/Siane")
 library(pxR)
 library(Siane)
-library(sp)
-```
-It is necessary to specify the path in which the maps are located.   
-The __obj__ variable should contain the path of the maps we are using. 
-```
-obj <- register_siane("/Users/Nuniemsis/Desktop/SIANE_CARTO_BASE_S_3M/")
 ```
 
-There are plenty of maps in our cartographic data. The user has to set a filter to get a specific map.  
-I am listing all the choices you can make:
-There are three levels of territories: __"Comunidades"__, __"Provincias"__ and __"Municipios"__. They are all accepted in the parameter *__level__*.  
-You can choose to receive either the Canarias map or the Peninsulae map. To have the Peninsulae map set __canarias__ to *TRUE*.  
-Maps are not immutable. Municipalities are constantly changing. The third parameter *__year__* let's the user ask for a map of that year.
+Siane consists of a collection of maps. This package needs to locate the path of this folder in order to search the requested map. The `obj` variable should contain the path of the maps we are using.
 
+
+#### Read the map
+```
+obj <- register_siane("/Users/Nuniemsis/Desktop/siane/")
+```
+
+
+Once we have located all the maps we can select one according with our data.
+These parameters are enough to specify a map.  
+  - `year` : Maps change over time. By now, The territories affected by the changes are just the municipalities(Municipios).  
+  - `canarias` : It indicates whether we want to plot Canarias or not.  
+  - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".  
+  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000  `scale <- "3" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m5"`.
 
 ```
-level <- "municipios"
+obj <- "/Users/nunoc/Desktop/siane"
+level <- "Municipios"
 canarias <- FALSE
 year <- 2016
+scale <- "3"
 ```
 
-The function __get_siane_map__ pick's the correct map for the user's data specifications.
-We store the map in the __shp__ variable.
-```
-shp <- get_siane_map(obj = obj, level = level, year = year, canarias = canarias)
-```
 
-Once we have the correct map it is time to get the data.  
-Please, specify the path of the INE data. 
+Now we call the `siane_map` function to extract a map from all the map's collection.
 
 ```
-ine_path <- "/Users/Nuniemsis/Downloads/2879.px"
+shp <- siane_map(level = level, obj = obj, year = year) # Reading the map from the maps collection
 ```
 
-Sometimes each municipality have more than one value for each territory.
-We may want to plot *"Men"*,*"Women"* or *"Total"* population. Let's say we want to plot the total population in each municipality in the 2016.
-The following variable will filter the whole dataset and take all the rows for 2016 total population in each municipality. You must take a look at the columns name to make the correct filter.
+
+#### Plot the map
+
+Did it worked?  
 
 ```
-subsetvars <- c("Sexo = Total","Periodo = 2016")
+raster::plot(shp)
 ```
 
-The *__pallete_colour__* is a colour from the RColorBrewer package. In this example we will use a pallete of orange and red colours.
+#### Load the data
 
-```
-pallete_colour <- "OrRd"
-```
 
-__n__ and __style__ are the corresponding number of classes required and the style used in the __classIntervals()__ function from the *classInt* package.
+Once we have the correct map it's time to get the data.  
+Please, specify the path INE's data path.  
+#### Data frame reading 
 
+Set the path of the INE data file. It should be in the pc-axis format.
 ```
-n <- 9 
-style <- "quantile"
-```
-
-After running __plot_siane__ function, the data will be plotted over the polygons. 
-
-```
-plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
+ine_path <- "/Users/nunoc/Downloads/2879.px"
 ```
 
-Let's suppose you don't know how to set the `subsetvars` parameter because you still haven't explored the data yet. The following function creates a random filter which could be introduced again as a parameter in `plot_siane`.
+Let's explore the dataset before plotting the data
+```
+df <- as.data.frame(read.px(ine_path))
+names(df) # List the column names  of the data frame
+```
 
-```{r}
+#### Data frame filtering 
+
+First we need to understand the data frame. It's columns are the following:  
+- `Periodo` is the time column in year's format.  
+- `value` is a column with the numeric value of the population.  
+- `Sexo` is the sex of that population.  
+- `Municipios` is a character array with the municipality name and the municipality code
+In this dataset there is only one value per territory.  
+
+Split the `Municipios` column to get the municipality's codes.  
+We are storing the codes in the column `codes`. This column is really important in order to plot the polygons with the correct colours. 
+
+
+#### Data frame preparation 
+
+```
+by <- "codes"
+```
+
+We create a single column in the data frame with those codes.
+```
+df[[by]] <- sapply(df$Municipios,
+                   function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
+```
+
+```
+df$Periodo <- as.numeric(as.character(df$Periodo))
+```
+
+Plotting polygons by colour intensity requires one unique value per territory.
+Therefore, we have to filter the data frame.  
+Keep this __Golden rule__: One value per territory.  
+In this example I want to plot the total population in the year 2016.   
+```
+df <- df[df$Sex == "Total" & df$Periodo == year, ]
+df
+```
+
+These are the basic options that you have to set to make the plot.  
+- `n` is the number of breaks(optional).  
+- `style` is a string that indicates the distribution of the bins(optional).  
+- `value` is the column name that contains the statistical information you want to plot(required).  
+- `by` is the column name for the territory codes(required).  
+- `title` is the plot title(optional).  
+- `pallete_colour` is a RColorBrewer(famous colours package) pallete.  
+Run this line of code to view more colour options. There three sets of colours
+
+#### Plot the map
+
+Plot the map with the statistical data with the `plot_siane` function.
+
+```
+by <- "codes"
+title <- "Población total por municipios en Zaragoza"
+value <- "value"
+```
+
+
+```
+plot_siane(shp = shp, df = df, by = by,
+            level = level, value = value)
+```
+![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_7.png)
+
+  
+### Other examples
+
+Let's try with a different [dataset](http://www.ine.es/jaxiT3/Tabla.htm?t=2852&L=0). This dataset has the spanish population for all the provinces.You can find the link in the README.MD file as well. Now we are going to go deeper in some options.
+  
+```
 ine_path <- "/Users/nunoc/Downloads/2852.px"
+df <- as.data.frame(read.px(ine_path))
+names(df) # List the column names  of the data frame
 ```
 
-Let's try with a different [dataset](http://www.ine.es/jaxiT3/Tabla.htm?t=2852&L=0). This dataset has the spanish population for all the provinces.You can find the link in the README.MD file as well. 
 
-```{r}
-subsetvars <- suggest_subset(ine_path)
+#### Data preparation 
+
+The same steps as before. 
+
+```
+df[[by]] <- sapply(df$Provincias,
+                   function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
 ```
 
-Remember that first we have to create the shapefile. We can't use the previous shapefile provided that the level has changed.
+```
+df$Periodo <- as.numeric(as.character(df$Periodo))
+```
 
-```{r}
+```
+df <- df[df$Sex == "Total" & df$Periodo == year,]
+df
+```
+
+The options now will be slightly different:`level <- "Provincias"`. Remember that first we have to create the shapefile. We can't use the previous shapefile provided that the level has changed. These maps are provincial maps.
+
+```
 level <- "Provincias"
+canarias <- FALSE
+year <- 2016
+scale <- "6m5" # "3" also accepted 
 ```
 
-Generate the map again.  
+#### Read the map
 
-```{r, message = FALSE}
-shp <- get_siane_map(obj,level,year,canarias)
+```
+shp <- siane_map(obj = obj, canarias = canarias, year = year, level = level, scale = scale)
 ```
 
-Plot the map.
+###### Map options
 
-```{r}
+
+Other parameters:
+
+- `x` : Is the position of the legend
+
+There are also additional parameters that affect the legend function.
+
+```
 pallete_colour <- "BuPu"
 n <- 5
 style <- "kmeans"
-siane_title <- "My Title"
-
-plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style, siane_title)
+title <- "Population"
+value <- "value"
+by <- "codes"
 ```
+
+#### Plot the map
+
+```
+plot_siane(shp = shp, df = df, by = by, level = level,value = value ,
+           pallete_colour = pallete_colour, n = n, style = style,
+            title = title, x = "bottomright",
+            y = 0.10 ,bty = "n" ,x.intersp = .2, y.intersp = .8)
+```
+![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_8.png)
+

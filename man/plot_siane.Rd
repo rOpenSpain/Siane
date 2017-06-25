@@ -4,12 +4,18 @@
 \alias{plot_siane}
 \title{plot_siane}
 \usage{
-plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
+plot_siane(shp, df, by, level, value, pallete_colour, n, style, title, x, ...)
 }
 \arguments{
 \item{shp}{: Is the shapefile return by the /code{get_siane_map} function.}
 
-\item{subsetvars}{: A vector of expressions. These expresions have to define univocally the values that we are plotting.}
+\item{df}{: The name of the data frame with the data we want to plot}
+
+\item{by}{: The name of the column that contains the ID's of the territories.}
+
+\item{level}{: The level of the territory: "Municipios", "Provincias", "Comunidades"}
+
+\item{value}{: A vector of expressions. These expresions have to define univocally the values that we are plotting.}
 
 \item{pallete_colour}{: A pallete_colour of the RColorBrewer package. It is a parameter from the /code{RColorBrewer::brewer.pal} function}
 
@@ -17,7 +23,7 @@ plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
 
 \item{style}{: The way the breaks are numerically distributed. It is a parameter from the /code{classInt::classIntervals} function}
 
-\item{inepath}{: The path of the Ine Data we want to plot.}
+\item{title}{: It's the title of the plot}
 }
 \description{
 This is a function that plots coloured polygons of the territories over the map.

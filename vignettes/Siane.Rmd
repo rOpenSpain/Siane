@@ -9,54 +9,63 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-In this document I will describe and make use of the main functions of this package. The first step is to load the package. Uncomment the first two lines of code in case you haven't installed the package.
+In this document I will describe and make use of the main functions of this package. The first step is to load the package. Uncomment the first two lines of code in case you haven't installed the package yet.
 
 
 ```{r, warning = FALSE, message = FALSE}
 #library(devtools)
 #install_github("Nuniemsis/Siane")
-library(pxR)
 library(Siane)
-library(sp)
+library(pxR)
+library(RColorBrewer)
+
 ```
 
-## Register Siane
+## Setting the path of the maps
 
-Siane extracts a map from a set of maps stored in a folder. Siane needs to know the path of this folder in order to search the requested map.
+Siane consists of a collection of maps. This package needs to locate the path of this folder in order to search the requested map.
 
 ```{r}
-obj <- register_siane("/Users/nunoc/Desktop/siane/SIANE_CARTO_BASE_S_3M/SIANE_CARTO_BASE_S_3M/")
+obj <- register_siane("/Users/nunoc/Desktop/siane/")
 ```
 
-## Get a Siane map
+## Loading a map
 
 Once we have located all the maps we can select one according with our data.
 These parameters are enough to specify a map.  
   - `year` : Maps change over time. By now, The territories affected by the changes are just the municipalities(Municipios).  
   - `canarias` : It indicates whether we want to plot Canarias or not.  
-  - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".    
+  - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".  
+  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000 `scale <- "3" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m5"`.
 
 ```{r}
+obj <- "/Users/nunoc/Desktop/siane"
 level <- "Municipios"
 canarias <- FALSE
 year <- 2016
+scale <- "3"
 ```
 
-Now we call the `get_siane_map` function to receive a S4 object.
+Now we call the `siane_map` function to extract a map from all the map's collection.
 
 ```{r}
-shp <- get_siane_map(obj = obj, level = 'muni', year = 2016, canarias = FALSE)
+shp <- siane_map(level = level, obj = obj, year = year) # Reading the map from the maps collection
 ```
+
+## Plot the map
 
 Did it worked?
 
 ```{r,fig.show='hold', fig.width = 5, fig.height = 5}
-sp::plot(shp)
+raster::plot(shp)
 ```
 
 The spanish political map looks just like this.  Let's try to plot some data on it. To keep following this tutorial you should download previously the data from the INE website. The README.md file explains how to download it. I will also share the [link](http://www.ine.es/jaxiT3/Tabla.htm?t=2879) here in case you already now how to do it.
 
-## Polygon plot
+## Polygon colour plot
+
+
+#### Data frame reading 
 
 Set the path of the INE data file. It should be in the pc-axis format.
 ```{r}
@@ -65,63 +74,140 @@ ine_path <- "/Users/nunoc/Downloads/2879.px"
 
 Let's explore the dataset before plotting the data
 ```{r}
-df_ine <- as.data.frame(read.px(ine_path))
-names(df_ine)
+df <- as.data.frame(read.px(ine_path))
+names(df) # List the column names  of the data frame
 ```
-In this dataset there is only one value per territory. If we had more than one value per territory this expression would be much more useful.
-`subsetvars` is a vector of strings. Each string is an equation. In each equation we should place at the left side the column we want to filter and in it's right side the filter value.
+
+#### Data frame filtering 
+
+First we need to understand the data frame. It's columns are the following:  
+- `Periodo` is the time column in year's format.  
+- `value` is a column with the numeric value of the population.  
+- `Sexo` is the sex of that population.  
+- `Municipios` is a character array with the municipality name and the municipality code
+In this dataset there is only one value per territory.
+
+Split the `Municipios` column to get the municipality's codes.  
+We are storing the codes in the column `codes`. This column is really important in order to plot the polygons with the correct colours. 
+
+
+#### Data frame preparation 
+
 ```{r}
-subsetvars <- c("Sexo = Total", "Periodo = 2016")
+by <- "codes"
 ```
 
-These are the basic options to make the plot.
-- `n` is the number of breaks
-- `pallete_colour` is a RColorBrewer colour pallete 
-- `style` is a string that indicates the distribution of the bins
+We create a single column in the data frame with those codes.
+```{r}
+df[[by]] <- sapply(df$Municipios,
+                   function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
+```
 
 ```{r}
-pallete_colour <- "OrRd"
-n <- 9 
-style <- "quantile"
+df$Periodo <- as.numeric(as.character(df$Periodo))
 ```
 
-Plot
-```{r, fig.show='hold', fig.width=6, fig.height=6}
-plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style)
+Plotting polygons by colour intensity requires one unique value per territory.
+Therefore, we have to filter the data frame.  
+Keep this __Golden rule__: One value per territory.  
+In this example I want to plot the total population in the year 2016.   
+```{r}
+df <- df[df$Sex == "Total" & df$Periodo == year, ]
+df
 ```
 
-Let's suppose you don't know how to set the `subsetvars` parameter because you still haven't explored the data yet. The following function creates a random filter which could be introduced again as a parameter in `plot_siane`.
+These are the basic options that you have to set to make the plot.  
+- `n` is the number of breaks(optional).  
+- `style` is a string that indicates the distribution of the bins(optional).
+- `value` is the column name that contains the statistical information you want to plot(required).
+- `by` is the column name for the territory codes(required).
+- `title` is the plot title(optional).
+- `pallete_colour` is a RColorBrewer(famous colours package) pallete.  
+Run this line of code to view more colour options. There three sets of colours  
+```{r, fig.width = 8, fig.height = 7}
+display.brewer.all()
+```
+Plot the map with the statistical data with the `plot_siane` function.
+
+```{r}
+by <- "codes"
+title <- "Población total por municipios en Zaragoza"
+value <- "value"
+```
+
+
+```{r, fig.show='hold', fig.width=7, fig.height = 6}
+plot_siane(shp = shp, df = df, by = by,
+            level = level, value = value)
+```
+
+#### Other examples
 
 ```{r}
 ine_path <- "/Users/nunoc/Downloads/2852.px"
+df <- as.data.frame(read.px(ine_path))
+names(df) # List the column names  of the data frame
 ```
 
 Let's try with a different dataset. This dataset has the spanish population for all the provinces.You can find the link in the README.MD file as well. [Link here](http://www.ine.es/jaxiT3/Tabla.htm?t=2852&L=0)
+```{r}
+df[[by]] <- sapply(df$Provincias,
+                   function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
+```
 
 ```{r}
-subsetvars <- suggest_subset(ine_path)
+df$Periodo <- as.numeric(as.character(df$Periodo))
+```
+
+```{r}
+df <- df[df$Sex == "Total" & df$Periodo == year,]
+df
 ```
 
 Remember that first we have to create the shapefile. We can't use the previous shapefile provided that the level has changed.
 
 ```{r}
 level <- "Provincias"
+canarias <- FALSE
+year <- 2016
+scale <- "6m5"
 ```
 
 Generate the map again.  
 
 ```{r, message = FALSE}
-shp <- get_siane_map(obj,level,year,canarias)
+shp <- siane_map(obj = obj, canarias = canarias, year = year, level = level, scale = scale)
 ```
-Plot the map.
+###### Map options
 
-```{r, fig.width = 5, fig.height = 5}
+
+Other parameters:
+
+- `x` : Is the position of the legend
+
+There are also additional parameters that affect the legend function.
+
+```{r}
 pallete_colour <- "BuPu"
-n <- 5
+n <- 8
 style <- "kmeans"
-siane_title <- "My Title"
-
-plot_siane(shp, ine_path, subsetvars, pallete_colour, n, style, siane_title)
+title <- "Population"
+value <- "value"
+by <- "codes"
+x <- "bottomright"
 ```
 
 
+#### Plot the map.
+
+```{r, fig.width = 7, fig.height = 7}
+
+
+plot_siane(shp = shp, df = df, by = by, level = level,value = value ,
+           pallete_colour = pallete_colour, n = n, style = style,
+            title = title, x = x,
+            y = 0.10 , bty = "n", x.intersp = .2, y.intersp = .8)
+
+
+
+```

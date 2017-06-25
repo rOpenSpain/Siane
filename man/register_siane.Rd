@@ -2,13 +2,19 @@
 % Please edit documentation in R/register_siane.R
 \name{register_siane}
 \alias{register_siane}
-\title{register_siane}
+\title{Indicate the map's path}
 \usage{
 register_siane(path)
 }
 \arguments{
 \item{path}{: The path of the maps at it's highest hierarchical level}
 }
+\value{
+It returns the string containing the path
+}
 \description{
 A function that helps loading the path of Siane maps
+}
+\examples{
+register_siane("/Users/nunoc/Desktop/siane")
 }
