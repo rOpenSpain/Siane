@@ -2,18 +2,18 @@
 % Please edit documentation in R/siane_map.R
 \name{siane_map}
 \alias{siane_map}
-\title{Load a spanish map}
+\title{Loads a spanish map}
 \usage{
 siane_map(obj, canarias, year, level, scale)
 }
 \arguments{
 \item{obj}{: Path to the Siane maps.}
 
-\item{canarias}{: Canarias set to TRUE returns the Canarias map. Canarias set to FALSE returns to the Peninsulae maps.}
+\item{canarias}{: A boolean value(TRUE/FALSE).}
 
 \item{year}{: The numeric year of the maps requested.}
 
-\item{level}{: Is the administrative level. Can take the values of "Provincia","Municipio" or "Comunidades"}
+\item{level}{: Is a string that represents the administrative level.}
 
 \item{scale}{: It's the scale of the map.}
 }
@@ -21,5 +21,14 @@ siane_map(obj, canarias, year, level, scale)
 A S4 object specified by the user
 }
 \description{
-A function that returns a S4 object of a Spain specific map
+A function that returns a S4 object(map) of a Spain specific map
+}
+\details{
+- \code{obj} should be a string of the path to the maps. It should contain the subfolders \bold{SIANE_CARTO_BASE_S_3M} and \bold{SIANE_CARTO_BASE_S_6M5}. \cr 
+- \code{level} can take the values of "Provincias","Municipios" or "Comunidades". The default value \cr is \code{level <- "Provincias"} \cr
+- \code{canarias} set to TRUE returns the Canarias map. \code{canarias} set to FALSE returns to the Peninsulae maps. \cr
+- The \code{year} variable should be numeric. If the map is not available for that year, the loaded map will be the latest available map. \cr
+The default value for the year is the latest year in which the maps are available. \cr 
+- The \code{scale} of the maps can be 1:3000000 or 1:6500000. The corresponding values for the \code{scale} variable are "3" and "6m5". \cr
+The default value for the municipalities maps is \code{scale <- "3"} . The default value for the other maps is \code{scale <- "6m5"}
 }

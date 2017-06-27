@@ -4,27 +4,44 @@
 \alias{plot_siane}
 \title{plot_siane}
 \usage{
-plot_siane(shp, df, by, level, value, pallete_colour, n, style, title, x, ...)
+plot_siane(shp, df, by, level, value, pallete_colour, n, style, plot_title,
+  subtitle, x, ...)
 }
 \arguments{
-\item{shp}{: Is the shapefile return by the /code{get_siane_map} function.}
+\item{shp}{: A S4 object returned by the /code{get_siane_map} function.}
 
-\item{df}{: The name of the data frame with the data we want to plot}
+\item{df}{: The data frame with the data we want to plot}
 
 \item{by}{: The name of the column that contains the ID's of the territories.}
 
-\item{level}{: The level of the territory: "Municipios", "Provincias", "Comunidades"}
+\item{level}{: The level of the territory.}
 
-\item{value}{: A vector of expressions. These expresions have to define univocally the values that we are plotting.}
+\item{value}{: The statistical values's we want to plot. Only one value per territory.}
 
-\item{pallete_colour}{: A pallete_colour of the RColorBrewer package. It is a parameter from the /code{RColorBrewer::brewer.pal} function}
+\item{pallete_colour}{: A pallete_colour of the RColorBrewer package.}
 
-\item{n}{: The number of breaks in the pallete. It is a parameter from the /code{classInt::classIntervals} function}
+\item{n}{: The number of breaks in the pallete.}
 
-\item{style}{: The way the breaks are numerically distributed. It is a parameter from the /code{classInt::classIntervals} function}
+\item{style}{: The way the breaks are numerically distributed.}
 
-\item{title}{: It's the title of the plot}
+\item{plot_title}{: It's the title of the plot}
+
+\item{subtitle}{: It's the subtitle of the plot}
 }
 \description{
 This is a function that plots coloured polygons of the territories over the map.
+}
+\details{
+- \code{shp} is a S4 object. \cr
+\code{df} is a data frame. This data frame should have at least two columns: one column of statistical data and another column of territorial codes. 
+There will be as many missing territories as missing codes in the dataframe. \cr
+\code{by} is the dataframe's codes column. \cr 
+For \code{level} parameter choose one: "Municipios", "Provincias", "Comunidades" . It's very important that this level is consistent with the S4 object. \cr
+\code{value} is the name of the column with the statistical values
+\code{pallete_colour} is a parameter from the /code{RColorBrewer::brewer.pal} function. Check RColorBrewer:display.brewer.all() to list all possible colours.
+\code{n} is a parameter from the /code{classInt::classIntervals} function.
+\code{style} is a parameter from the /code{classInt::classIntervals} function. Check ?classInt::classIntervals to list more options.
+\code{plot_title} is the title of the map.
+\code{subtitle} is the subtitle of the map
+\code{...} other parameters can be set to the legend() function. Please check ?legend to learn about them
 }

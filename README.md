@@ -225,9 +225,10 @@ There are also additional parameters that affect the legend function. Check `?le
 pallete_colour <- "BuPu"
 n <- 5
 style <- "kmeans"
-title <- "Population"
+plot_title <- "Population"
 value <- "value"
 by <- "codes"
+subtitle <- "Fuente: INE"
 ```
 
 #### Plot the map
@@ -235,7 +236,7 @@ by <- "codes"
 ```
 plot_siane(shp = shp, df = df, by = by, level = level,value = value ,
            pallete_colour = pallete_colour, n = n, style = style,
-            title = title, x = "bottomright",
+            plot_title = plot_title,subtitle = subtitle, title = "Population",  x = "bottomright",
             y = 0.10 ,bty = "n" ,x.intersp = .2, y.intersp = .8)
 ```
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_8.png)

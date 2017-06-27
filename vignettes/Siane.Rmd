@@ -113,7 +113,6 @@ Keep this __Golden rule__: One value per territory.
 In this example I want to plot the total population in the year 2016.   
 ```{r}
 df <- df[df$Sex == "Total" & df$Periodo == year, ]
-df
 ```
 
 These are the basic options that you have to set to make the plot.  
@@ -161,7 +160,6 @@ df$Periodo <- as.numeric(as.character(df$Periodo))
 
 ```{r}
 df <- df[df$Sex == "Total" & df$Periodo == year,]
-df
 ```
 
 Remember that first we have to create the shapefile. We can't use the previous shapefile provided that the level has changed.
@@ -191,6 +189,8 @@ There are also additional parameters that affect the legend function.
 pallete_colour <- "BuPu"
 n <- 8
 style <- "kmeans"
+plot_title <- "Population"
+subtitle <- "Fuente:INE"
 title <- "Population"
 value <- "value"
 by <- "codes"
@@ -205,7 +205,7 @@ x <- "bottomright"
 
 plot_siane(shp = shp, df = df, by = by, level = level,value = value ,
            pallete_colour = pallete_colour, n = n, style = style,
-            title = title, x = x,
+            plot_title = plot_title, x = x, subtitle = subtitle, title = title,
             y = 0.10 , bty = "n", x.intersp = .2, y.intersp = .8)
 
 
