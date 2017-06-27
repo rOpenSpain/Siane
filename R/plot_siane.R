@@ -24,7 +24,7 @@
 #' @export
 
 
-plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, title, x, ...){
+plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, title, subtitle, x, ...){
   if((by %in% names(df)) == FALSE){ # Checking if the ID's column is in the dataframe
     stop(paste0("The column ",by," is not in the data frame. Try to run names(df) to check the data frame column names"))
   }
@@ -45,6 +45,9 @@ plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, titl
   }
   if(missing(x)){
     x <- "bottomright"
+  }
+  if(missing(subtitle)){
+    x <- ""
   }
   
 
@@ -70,7 +73,7 @@ plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, titl
                              all.inside=TRUE)] # Setting the final colors
 
   raster::plot(shp,col = col) # Plot the map
-  title(title) # Write the title
+  title(main = title, sub = subtitle) # Write the title
   legend(legend = leglabs(round(my_pallete)),fill = colors,x = x, ...) # Make the legend
   
 }
