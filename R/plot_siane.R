@@ -47,7 +47,7 @@ plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, titl
     x <- "bottomright"
   }
   if(missing(subtitle)){
-    x <- ""
+    subtitle <- ""
   }
   
 
@@ -74,6 +74,6 @@ plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, titl
 
   raster::plot(shp,col = col) # Plot the map
   title(main = title, sub = subtitle) # Write the title
-  legend(legend = leglabs(round(my_pallete)),fill = colors,x = x, ...) # Make the legend
+  legend(legend = leglabs(round(my_pallete)),fill = colors, x = x, ...) # Make the legend
   
 }
