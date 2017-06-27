@@ -24,15 +24,15 @@
 #' @export
 
 
-plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, title, subtitle, x, ...){
+plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, plot_title, subtitle, x, ...){
   if((by %in% names(df)) == FALSE){ # Checking if the ID's column is in the dataframe
     stop(paste0("The column ",by," is not in the data frame. Try to run names(df) to check the data frame column names"))
   }
   if((value %in% names(df)) == FALSE){ # Checking if the ID's column is in the dataframe
     stop(paste0("The column ",value," is not in the data frame. Try to run names(df) to check the data frame column names"))
   }
-  if(missing(title)){
-    title <- ""
+  if(missing(plot_title)){
+    plot_title <- ""
   }
   if(missing(pallete_colour)){
     pallete_colour <- "OrRd" # Orange and Red as the default colours for the pallete
@@ -73,7 +73,7 @@ plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, titl
                              all.inside=TRUE)] # Setting the final colors
 
   raster::plot(shp,col = col) # Plot the map
-  title(main = title, sub = subtitle) # Write the title
+  title(main = plot_title, sub = subtitle) # Write the title
   legend(legend = leglabs(round(my_pallete)),fill = colors, x = x, ...) # Make the legend
   
 }
