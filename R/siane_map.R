@@ -25,7 +25,7 @@
 
 siane_map <- function(obj, canarias, year, level, scale){
   
-  level_code <- get_level(level)
+  level_code <- get_level(level) # Administrative level as a string 
   
   if(missing(scale)){
     scale <- get_scale(level_code) # Setting default scale to 3M for municipalities and 6M5 for provinces and regions 
@@ -50,6 +50,6 @@ siane_map <- function(obj, canarias, year, level, scale){
 
   
   shp <- readOGR(dsn = get_dir(base_path, dirs_path,last_path, year), 
-                 layer = file_name(level_code, boolean_canarias, scale)) # Read the map
+                 layer = file_name(level_code, boolean_canarias, scale),use_iconv = TRUE,encoding = "utf-8",) # Read the map
 }
 

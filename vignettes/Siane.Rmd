@@ -49,7 +49,7 @@ scale <- "3"
 Now we call the `siane_map` function to extract a map from all the map's collection.
 
 ```{r}
-shp <- siane_map(level = level, obj = obj, year = year) # Reading the map from the maps collection
+shp <- siane_map(level = level, obj = obj, year = year, scale = scale) # Reading the map from the maps collection
 ```
 
 ## Plot the map
@@ -130,14 +130,14 @@ Plot the map with the statistical data with the `plot_siane` function.
 
 ```{r}
 by <- "codes"
-title <- "Población total por municipios en Zaragoza"
+title_plot <- "Población total por municipios en Zaragoza"
 value <- "value"
 ```
 
 
 ```{r, fig.show='hold', fig.width=7, fig.height = 6}
 plot_siane(shp = shp, df = df, by = by,
-            level = level, value = value)
+            level = level, value = value, x = "bottomright")
 ```
 
 #### Other examples
@@ -189,24 +189,18 @@ There are also additional parameters that affect the legend function.
 pallete_colour <- "BuPu"
 n <- 8
 style <- "kmeans"
-plot_title <- "Population"
-subtitle <- "Fuente:INE"
-title <- "Population"
 value <- "value"
 by <- "codes"
-x <- "bottomright"
 ```
 
 
 #### Plot the map.
 
 ```{r, fig.width = 7, fig.height = 7}
-
-
 plot_siane(shp = shp, df = df, by = by, level = level,value = value ,
            pallete_colour = pallete_colour, n = n, style = style,
-            plot_title = plot_title, x = x, subtitle = subtitle, title = title,
-            y = 0.10 , bty = "n", x.intersp = .2, y.intersp = .8)
+            main = "Population", sub = "Fuente:INE", y = 0.20, x = 'bottomright',
+            bty = "n", x.intersp = .2, y.intersp = .8)
 
 
 

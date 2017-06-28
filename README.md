@@ -41,7 +41,7 @@ Now we are ready to go through the code.
 ```
 library(devtools)
 install_github("Nuniemsis/Siane")
-library(pxR)
+library(pxR) # install.packages("pxR")
 library(Siane)
 ```
 
@@ -55,31 +55,29 @@ obj <- register_siane("/Users/Nuniemsis/Desktop/siane/")
 
 
 Once we have located all the maps we can select one according with our data.
-These parameters are enough to specify a map.  
+These parameters will define the selected map.
+  - `obj` : Path to all the maps. 
   - `year` : Maps change over time. By now, The territories affected by the changes are just the municipalities(Municipios).  
   - `canarias` : It indicates whether we want to plot Canarias or not.  
   - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".  
-  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000  `scale <- "3" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m5"`.
+  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000  `scale <- "3" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m5"`.  
+
+Now we call the `siane_map` function to extract and read a map from the entire map's collection.
 
 ```
-obj <- "/Users/nunoc/Desktop/siane"
-level <- "Municipios"
-canarias <- FALSE
-year <- 2016
-scale <- "3"
+shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Reading the map from the maps collection 
 ```
 
-
-Now we call the `siane_map` function to extract a map from all the map's collection.
+You will be able to read the map from previous years.
 
 ```
-shp <- siane_map(level = level, obj = obj, year = year) # Reading the map from the maps collection
+shp_2011 <- siane_map(obj = obj, level = "Municipios", canarias = FALSE, year = 2011)  
 ```
 
 
 #### Plot the map
 
-Did it worked?  
+Did it get the map worked?  
 
 ```
 raster::plot(shp)
@@ -90,6 +88,7 @@ raster::plot(shp)
 
 Once we have the correct map it's time to get the data.  
 Please, specify the path INE's data path.  
+
 #### Data frame reading 
 
 Set the path of the INE data file. It should be in the pc-axis format.
@@ -100,6 +99,12 @@ ine_path <- "/Users/nunoc/Downloads/2879.px"
 Let's explore the dataset before plotting the data
 ```
 df <- as.data.frame(read.px(ine_path))
+
+
+# if function read.px can't be found run install.packages("pxR") to install it
+
+
+
 names(df) # List the column names  of the data frame
 ```
 
@@ -124,12 +129,12 @@ by <- "codes"
 
 We create a single column in the data frame with those codes.
 ```
-df[[by]] <- sapply(df$Municipios,
+df[[by]] <- sapply(df$Municipios,  # Splitting by white space and keeping the first element
                    function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
 ```
 
 ```
-df$Periodo <- as.numeric(as.character(df$Periodo))
+df$Periodo <- as.numeric(as.character(df$Periodo)) #  From factor into numeric
 ```
 
 Plotting polygons by colour intensity requires one unique value per territory.
@@ -137,8 +142,7 @@ Therefore, we have to filter the data frame.
 Keep this __Golden rule__: One value per territory.  
 In this example I want to plot the total population in the year 2016.   
 ```
-df <- df[df$Sex == "Total" & df$Periodo == year, ]
-df
+df <- df[df$Sex == "Total" & df$Periodo == 2016, ] 
 ```
 
 These are the basic options that you have to set to make the plot.  
@@ -156,14 +160,13 @@ Plot the map with the statistical data with the `plot_siane` function.
 
 ```
 by <- "codes"
-title <- "Población total por municipios en Zaragoza"
 value <- "value"
 ```
 
 
 ```
 plot_siane(shp = shp, df = df, by = by,
-            level = level, value = value)
+            level = level, value = value , x = "bottomright")
 ```
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_7.png)
 
@@ -219,7 +222,7 @@ Other parameters:
 
 - `x` : Is the position of the legend
 
-There are also additional parameters that affect the legend function. Check `?legend` for more information.
+There are also additional parameters that affect the legend function. Check `?legend` and `?title` for more information.
 
 ```
 pallete_colour <- "BuPu"
@@ -228,7 +231,7 @@ style <- "kmeans"
 plot_title <- "Population"
 value <- "value"
 by <- "codes"
-subtitle <- "Fuente: INE"
+subtitle <- "Data source: INE | Maps source: IGN"
 ```
 
 #### Plot the map
@@ -236,8 +239,8 @@ subtitle <- "Fuente: INE"
 ```
 plot_siane(shp = shp, df = df, by = by, level = level,value = value ,
            pallete_colour = pallete_colour, n = n, style = style,
-            plot_title = plot_title,subtitle = subtitle, title = "Population",  x = "bottomright",
-            y = 0.10 ,bty = "n" ,x.intersp = .2, y.intersp = .8)
+            main = plot_title, sub = subtitle, title = "Inhabitants",  x = "bottomright",
+            y = 0.10 ,bty = "n")
 ```
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_8.png)
 
