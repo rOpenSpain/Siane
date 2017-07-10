@@ -9,7 +9,7 @@ siane_map(obj, canarias, year, level, scale)
 \arguments{
 \item{obj}{: Path to the Siane maps.}
 
-\item{canarias}{: A boolean value(TRUE/FALSE).}
+\item{canarias}{: A boolean value(TRUE/FALSE) to take Canarias into account.}
 
 \item{year}{: The numeric year of the maps requested.}
 
@@ -29,6 +29,6 @@ A function that returns a S4 object(map) of a Spain specific map
 - \code{canarias} set to TRUE returns the Canarias map. \code{canarias} set to FALSE returns to the Peninsulae maps. \cr
 - The \code{year} variable should be numeric. If the map is not available for that year, the loaded map will be the latest available map. \cr
 The default value for the year is the latest year in which the maps are available. \cr 
-- The \code{scale} of the maps can be 1:3000000 or 1:6500000. The corresponding values for the \code{scale} variable are "3" and "6m5". \cr
-The default value for the municipalities maps is \code{scale <- "3"} . The default value for the other maps is \code{scale <- "6m5"}
+- The \code{scale} of the maps can be 1:3000000 or 1:6500000. The corresponding values for the \code{scale} variable are "3m" and "6m". \cr
+The default value for the municipalities maps is \code{scale <- "3m"} . The default value for the other maps is \code{scale <- "6m"}
 }

@@ -60,7 +60,7 @@ These parameters will define the selected map.
   - `year` : Maps change over time. By now, The territories affected by the changes are just the municipalities(Municipios).  
   - `canarias` : It indicates whether we want to plot Canarias or not.  
   - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".  
-  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000  `scale <- "3" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m5"`.  
+  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000  `scale <- "3m" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m"`.  
 
 Now we call the `siane_map` function to extract and read a map from the entire map's collection.
 
@@ -141,32 +141,37 @@ Plotting polygons by colour intensity requires one unique value per territory.
 Therefore, we have to filter the data frame.  
 Keep this __Golden rule__: One value per territory.  
 In this example I want to plot the total population in the year 2016.   
+
 ```
 df <- df[df$Sex == "Total" & df$Periodo == 2016, ] 
 ```
 
-These are the basic options that you have to set to make the plot.  
-- `n` is the number of breaks(optional).  
-- `style` is a string that indicates the distribution of the bins(optional).  
-- `value` is the column name that contains the statistical information you want to plot(required).  
-- `by` is the column name for the territory codes(required).  
-- `title` is the plot title(optional).  
-- `pallete_colour` is a RColorBrewer(famous colours package) pallete.  
-Run this line of code to view more colour options. There three sets of colours
-
 #### Plot the map
 
-Plot the map with the statistical data with the `plot_siane` function.
+
+We have to set parameters. 
 
 ```
 by <- "codes"
 value <- "value"
 level <- "Municipios"
-```
-
 
 ```
-plot_siane(shp = shp, df = df, by = by,
+
+- `value` is the column name that contains the statistical information you want to plot(required).  
+- `by` is the column name for the territory codes(required).  
+
+
+Merge statistical and spatial data. 
+
+```
+shp_merged <- siane_merge(shp = shp, df = df, by = by, level = level,value = value)
+```
+
+Plot the map with the statistical data with the `siane_plot` function.
+
+```
+siane_plot(shp = shp_merged, df = df, by = by,
             level = level, value = value , x = "bottomright")
 ```
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_7.png)
@@ -201,7 +206,6 @@ df$Periodo <- as.numeric(as.character(df$Periodo))
 year <- 2016 # year of the maps
 
 df <- df[df$Sex == "Total" & df$Periodo == year,]
-df
 ```
 
 The options now will be slightly different:`level <- "Provincias"`. Remember that first we have to create the shapefile. We can't use the previous shapefile provided that the level has changed. These maps are provincial maps.
@@ -209,7 +213,7 @@ The options now will be slightly different:`level <- "Provincias"`. Remember tha
 ```
 level <- "Provincias"
 canarias <- FALSE
-scale <- "6m5" # "3" also accepted 
+scale <- "6m" # "3m" also accepted 
 ```
 
 #### Read the map
@@ -220,6 +224,35 @@ shp <- siane_map(obj = obj, canarias = canarias, year = year, level = level, sca
 
 ###### Map options
 
+The values are in the `values` column and the codes are in the `codes` column.
+
+```
+value <- "value"
+by <- "codes"
+```
+
+
+```
+
+shp_merged <- siane_merge(shp = shp, df = df, by = by, value = value)
+```
+
+Setting the plot options.
+
+```
+pallete_colour <- "BuPu"
+n <- 5
+style <- "kmeans"
+plot_title <- "Population"
+subtitle <- "Data source: INE | Maps source: IGN"
+```
+
+
+These are the basic options that you have to set to make the plot.  
+- `n` is the number of breaks(optional).  
+- `style` is a string that indicates the distribution of the bins(optional).  
+- `pallete_colour` is a RColorBrewer(famous colours package) pallete.  
+Run this line of code to view more colour options. There three sets of colours
 
 Other parameters:
 
@@ -227,21 +260,10 @@ Other parameters:
 
 There are also additional parameters that affect the legend function. Check `?legend` and `?title` for more information.
 
-```
-pallete_colour <- "BuPu"
-n <- 5
-style <- "kmeans"
-plot_title <- "Population"
-value <- "value"
-by <- "codes"
-subtitle <- "Data source: INE | Maps source: IGN"
-```
-
 #### Plot the map
 
 ```
-plot_siane(shp = shp, df = df, by = by, level = level,value = value ,
-           pallete_colour = pallete_colour, n = n, style = style,
+siane_plot(shp = shp_merged, pallete_colour = pallete_colour, n = n, style = style,
             main = plot_title, sub = subtitle, title = "Inhabitants",  x = "bottomright",
             y = 0.10 ,bty = "n")
 ```

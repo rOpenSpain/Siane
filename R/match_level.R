@@ -1,5 +1,5 @@
 
-get_level <- function(level){
+match_level <- function(level){
   if (missing(level)){
     level <- "p"
   }else{

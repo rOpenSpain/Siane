@@ -26,7 +26,7 @@ library(RColorBrewer)
 Siane consists of a collection of maps. This package needs to locate the path of this folder in order to search the requested map.
 
 ```{r}
-obj <- register_siane("/Users/nunoc/Desktop/siane/")
+obj <- register_siane("/home/ncarvalho/Descargas/")
 ```
 
 ## Loading a map
@@ -36,14 +36,14 @@ These parameters are enough to specify a map.
   - `year` : Maps change over time. By now, The territories affected by the changes are just the municipalities(Municipios).  
   - `canarias` : It indicates whether we want to plot Canarias or not.  
   - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".  
-  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000 `scale <- "3" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m5"`.
+  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000 `scale <- "3m" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m"`.
 
 ```{r}
-obj <- "/Users/nunoc/Desktop/siane"
+obj <- "/home/ncarvalho/Descargas"
 level <- "Municipios"
 canarias <- FALSE
 year <- 2016
-scale <- "3"
+scale <- "3m"
 ```
 
 Now we call the `siane_map` function to extract a map from all the map's collection.
@@ -69,7 +69,7 @@ The spanish political map looks just like this.  Let's try to plot some data on 
 
 Set the path of the INE data file. It should be in the pc-axis format.
 ```{r}
-ine_path <- "/Users/nunoc/Downloads/2879.px"
+ine_path <- "/home/ncarvalho/Descargas/2879.px"
 ```
 
 Let's explore the dataset before plotting the data
@@ -126,24 +126,26 @@ Run this line of code to view more colour options. There three sets of colours
 ```{r, fig.width = 8, fig.height = 7}
 display.brewer.all()
 ```
-Plot the map with the statistical data with the `plot_siane` function.
+Plot the map with the statistical data with the `siane_plot` function.
 
 ```{r}
 by <- "codes"
 title_plot <- "Población total por municipios en Zaragoza"
 value <- "value"
+
+shp_merged <- siane_merge(shp = shp, df = df,by = by, level = level, value = value)
+
 ```
 
 
 ```{r, fig.show='hold', fig.width=7, fig.height = 6}
-plot_siane(shp = shp, df = df, by = by,
-            level = level, value = value, x = "bottomright")
+siane_plot(shp = shp_merged, x = "bottomright")
 ```
 
 #### Other examples
 
 ```{r}
-ine_path <- "/Users/nunoc/Downloads/2852.px"
+ine_path <- "/home/ncarvalho/Descargas/2852.px"
 df <- as.data.frame(read.px(ine_path))
 names(df) # List the column names  of the data frame
 ```
@@ -168,7 +170,7 @@ Remember that first we have to create the shapefile. We can't use the previous s
 level <- "Provincias"
 canarias <- FALSE
 year <- 2016
-scale <- "6m5"
+scale <- "6m"
 ```
 
 Generate the map again.  
@@ -179,29 +181,29 @@ shp <- siane_map(obj = obj, canarias = canarias, year = year, level = level, sca
 ###### Map options
 
 
-Other parameters:
-
-- `x` : Is the position of the legend
-
-There are also additional parameters that affect the legend function.
-
 ```{r}
-pallete_colour <- "BuPu"
-n <- 8
-style <- "kmeans"
 value <- "value"
 by <- "codes"
+```
+
+
+```{r}
+shp_merged <- siane_merge(shp = shp, df = df, by = by, level = level, value = value)
 ```
 
 
 #### Plot the map.
 
 ```{r, fig.width = 7, fig.height = 7}
-plot_siane(shp = shp, df = df, by = by, level = level,value = value ,
+pallete_colour <- "BuPu"
+n <- 8
+style <- "kmeans"
+
+
+siane_plot(shp = shp_merged, 
            pallete_colour = pallete_colour, n = n, style = style,
             main = "Population", sub = "Fuente:INE", y = 0.20, x = 'bottomright',
             bty = "n", x.intersp = .2, y.intersp = .8)
-
 
 
 ```

@@ -1,4 +1,4 @@
-get_shp_code <- function(level){
+shp_code <- function(level){
   
   if (missing(level)){
     level <- "p"
