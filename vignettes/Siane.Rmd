@@ -207,3 +207,89 @@ siane_plot(shp = shp_merged,
 
 
 ```
+
+
+## Combining Siane with another libraries
+
+Please download this data [link](http://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p05/a2002/l0/&file=00008001.px&L=0). This dataset contains the number of inhabitants of Barcelonas municipalities per five year age groups.
+We are now trying to combine leaflet library with Siane to make a higher quality visualization. 
+
+```{r}
+library(leaflet)
+library(data.table)
+```
+
+Reading the map
+```{r}
+shp <- siane_map(obj = obj, canarias = FALSE, year = 2016,level = "Municipios" ,scale = "3m")
+```
+
+Reading the data
+```{r}
+ine_path <- "/home/ncarvalho/Descargas/00008001.px"
+df <- as.data.frame(read.px(ine_path))
+df <- as.data.table(df)
+```
+
+Calculating the sum of the inhabitants of all ages per sex.
+```{r}
+df_sum <- df[, sum(value),by = c("Municipios", "Sexo") ]
+```
+
+Calculating the percentage of each group of age per municipality and gender
+```{r}
+df_withsums <- merge(df, df_sum, by = c("Municipios","Sexo"))
+df_withsums$perc <- df_withsums$value/df_withsums$V1
+```
+
+Filtering the data
+
+```{r}
+
+df_withsums <- df_withsums[df_withsums$Sexo=="Mujeres"&
+                           df_withsums$Edad..grupos.quinquenales.=="0-4"]
+```
+
+```{r}
+names(df_withsums)
+```
+
+
+
+Extracting the code
+```{r}
+by <- "codes"
+value <- "value"
+
+df_withsums[[by]] <- sapply(df_withsums$Municipios,
+                   function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
+
+```
+
+
+
+```{r}
+shp_merged <- siane_merge(shp = shp, df = df_withsums, by = by,value = value, level = "Municipios")
+```
+
+This leaflet code is available [here](https://rstudio.github.io/leaflet/shapes.html)
+
+```{r}
+
+leaflet(shp_merged) %>% 
+  addTiles() %>%
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
+    opacity = 1.0, fillOpacity = 0.5,
+    fillColor = ~colorQuantile("YlOrRd", value)(value),
+    highlightOptions = highlightOptions(color = "white", weight = 2,
+      bringToFront = TRUE))
+
+
+
+
+```
+
+
+
+
+
