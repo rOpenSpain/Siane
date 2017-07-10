@@ -19,10 +19,10 @@ siane_plot(shp, pallete_colour, n, style, ...)
 This is a function that plots coloured polygons of the territories over the map.
 }
 \details{
-- \code{shp} is a S4 object. \cr
-\code{pallete_colour} is a parameter from the /code{RColorBrewer::brewer.pal} function. The default pallete is "OrRd". Check RColorBrewer:display.brewer.all() to list all possible colours.
-\code{n} is a parameter from the /code{classInt::classIntervals} function. Default  \code{n = 5}
-\code{style} is a parameter from the /code{classInt::classIntervals} function. Defauly \code{style = quantile} Check ?classInt::classIntervals to list more options.
-\code{...} other parameters can be set to the legend() function and the title() function.
-Please check ?legend and ?title to learn about the parameters of these functions.
+- \code{shp} is a S4 object returned by the \code{siane_merge} function . \cr
+\code{pallete_colour} is a parameter from the \code{RColorBrewer::brewer.pal} function. The default pallete is "OrRd". Check RColorBrewer:display.brewer.all() to list all possible colours.
+\code{n} is a parameter from the /code{classInt::classIntervals} function. Default  \code{n = 5}  \cr
+\code{style} is a parameter from the /code{classInt::classIntervals} function. Defauly \code{style = quantile} Check ?classInt::classIntervals to list more options. \cr
+\code{...} other parameters can be set to the legend() function and the title() function. 
+Please check ?legend and ?title to learn about the parameters of these functions. \cr
 }
