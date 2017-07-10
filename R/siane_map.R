@@ -36,7 +36,7 @@ siane_map <- function(obj, canarias, year, level, scale){
   }
   
   
-  boolean_canarias <- get_boolean_canarias(canarias) # Canarias indicator
+  bool_can <- boolean_canarias(canarias) # Canarias indicator
 
   path_by_scale <- get_path_scale(scale) # Scale indicator
 
@@ -46,10 +46,10 @@ siane_map <- function(obj, canarias, year, level, scale){
 
   dirs_path <- sort(dirs_path, decreasing = TRUE) # We sort the dirs to be able to search the file from the newest year to the latest year 
 
-  last_path <- file_name(level_code, boolean_canarias, scale) # This is the path to the file
+  last_path <- file_name(level_code, bool_can, scale) # This is the path to the file
 
   
   shp <- readOGR(dsn = get_dir(base_path, dirs_path,last_path, year), 
-                 layer = file_name(level_code, boolean_canarias, scale),use_iconv = TRUE,encoding = "utf-8",) # Read the map
+                 layer = file_name(level_code, bool_can, scale),use_iconv = TRUE,encoding = "utf-8",) # Read the map
 }
 

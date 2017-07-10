@@ -47,7 +47,7 @@ plot_siane <- function(shp, df, by, level, value, pallete_colour, n, style, ...)
     # Missing arguments
     
   
-    pallete_colour <- missing_fun(pallete_colour, "OrRd")
+    pallete_colour <- missing_fun(pallete_colour, "OrRd") 
     style <- missing_fun(style, "quantile")
     n <- missing_fun(n, 5)
     

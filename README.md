@@ -161,6 +161,7 @@ Plot the map with the statistical data with the `plot_siane` function.
 ```
 by <- "codes"
 value <- "value"
+level <- "Municipios"
 ```
 
 
@@ -196,6 +197,9 @@ df$Periodo <- as.numeric(as.character(df$Periodo))
 ```
 
 ```
+
+year <- 2016 # year of the maps
+
 df <- df[df$Sex == "Total" & df$Periodo == year,]
 df
 ```
@@ -205,7 +209,6 @@ The options now will be slightly different:`level <- "Provincias"`. Remember tha
 ```
 level <- "Provincias"
 canarias <- FALSE
-year <- 2016
 scale <- "6m5" # "3" also accepted 
 ```
 
