@@ -211,7 +211,7 @@ siane_plot(shp = shp_merged,
 
 ## Combining Siane with another libraries
 
-Please download this data [link](http://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p05/a2002/l0/&file=00008001.px&L=0). This dataset contains the number of inhabitants of Barcelonas municipalities per five year age groups.
+Please download this data [link](http://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p05/a2002/l0/&file=00008001.px&L=0). This dataset contains the number of inhabitants of Barcelona's municipalities per five year age groups.
 We are now trying to combine leaflet library with Siane to make a higher quality visualization. 
 
 ```{r}
@@ -242,7 +242,7 @@ df_withsums <- merge(df, df_sum, by = c("Municipios","Sexo"))
 df_withsums$perc <- df_withsums$value/df_withsums$V1
 ```
 
-Filtering the data
+Filtering the data: Women with 0-4 years old.
 
 ```{r}
 
@@ -250,13 +250,8 @@ df_withsums <- df_withsums[df_withsums$Sexo=="Mujeres"&
                            df_withsums$Edad..grupos.quinquenales.=="0-4"]
 ```
 
-```{r}
-names(df_withsums)
-```
 
-
-
-Extracting the code
+Extracting the territory code for all the municipalities
 ```{r}
 by <- "codes"
 value <- "value"
@@ -267,6 +262,7 @@ df_withsums[[by]] <- sapply(df_withsums$Municipios,
 ```
 
 
+Mergind spatial data and statistical data.
 
 ```{r}
 shp_merged <- siane_merge(shp = shp, df = df_withsums, by = by,value = value, level = "Municipios")
