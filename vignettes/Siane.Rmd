@@ -254,7 +254,7 @@ df_withsums <- df_withsums[df_withsums$Sexo=="Mujeres"&
 Extracting the territory code for all the municipalities
 ```{r}
 by <- "codes"
-value <- "value"
+value <- "perc"
 
 df_withsums[[by]] <- sapply(df_withsums$Municipios,
                    function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
@@ -276,7 +276,7 @@ leaflet(shp_merged) %>%
   addTiles() %>%
   addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
     opacity = 1.0, fillOpacity = 0.5,
-    fillColor = ~colorQuantile("YlOrRd", value)(value),
+    fillColor = ~colorQuantile("YlOrRd", perc)(perc),
     highlightOptions = highlightOptions(color = "white", weight = 2,
       bringToFront = TRUE))
 
