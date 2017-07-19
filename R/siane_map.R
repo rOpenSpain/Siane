@@ -1,7 +1,12 @@
+#' @import "rgdal" 
 #'@title Loads a spanish map 
 #'
 #' @description A function that returns a S4 object(map) of a Spain specific map
 
+#' @examples
+#' obj <- register_siane(system.file("extdata",package = "Siane")) # Registering a sample of Siane
+#' shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Loading the municipality's map of Spain
+#' plot(shp) # Plot the map
 
 
 #' @param obj : Path to the Siane maps.

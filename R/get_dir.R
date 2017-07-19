@@ -1,5 +1,4 @@
 get_dir <- function(base_path, dirs_path,last_path, year){
-  
 
   if(missing(year)){
     cat("Using default year as the latest year \n")

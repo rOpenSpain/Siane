@@ -6,13 +6,15 @@ Depends: R (>= 3.3.1)
 License: MIT
 Encoding: UTF-8
 LazyData: true
-Authors@R: c(person("Nuno", "Carvalho", role = c("aut", "cre"),
-                     email = "nunocarvalhodossantos@gmail.com"),
-              person("Carlos J. Gil Bellosta"))
-Author: Nuno [aut, cre],
-  Carlos [aut],
+Authors@R: c(person("Carlos J. Gil Bellosta",
+  email = "cgb@datanalytics.com",role = c("aut","cre")),
+  person("Nuno", "Carvalho", role = c("aut"),
+  email = "nunocarvalhodossantos@gmail.com"))
+Author: Carlos J. Gil Bellosta[aut, cre]
+  Nuno Carvalho[aut]
 Maintainer: Nuno Carvalho <nunocarvalhodossantos@gmail.com>
+Depends: RColorBrewer, classInt, maptools, plyr, raster, rgdal
 RoxygenNote: 6.0.1
 Suggests: knitr,
-    rmarkdown
+  rmarkdown
 VignetteBuilder: knitr

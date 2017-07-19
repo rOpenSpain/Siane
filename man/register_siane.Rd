@@ -2,19 +2,19 @@
 % Please edit documentation in R/register_siane.R
 \name{register_siane}
 \alias{register_siane}
-\title{Indicate the map's path}
+\title{Register the map's path}
 \usage{
 register_siane(path)
 }
 \arguments{
-\item{path}{: The path of the maps at it's highest hierarchical level}
+\item{path}{: The path of the folder that contains the folder SIANE_CARTO_BASE_S_3M and the folder SIANE_CARTO_BASE_S_6M5.}
 }
 \value{
-It returns the string containing the path
+It returns the same path as a string.
 }
 \description{
-A function that helps loading the path of Siane maps
+A function that validates the path of Siane maps
 }
 \examples{
-register_siane("/Users/nunoc/Desktop/siane")
+obj <- register_siane(system.file("extdata",package = "Siane"))
 }

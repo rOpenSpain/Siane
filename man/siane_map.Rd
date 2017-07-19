@@ -32,3 +32,8 @@ The default value for the year is the latest year in which the maps are availabl
 - The \code{scale} of the maps can be 1:3000000 or 1:6500000. The corresponding values for the \code{scale} variable are "3m" and "6m". \cr
 The default value for the municipalities maps is \code{scale <- "3m"} . The default value for the other maps is \code{scale <- "6m"}
 }
+\examples{
+obj <- register_siane(system.file("extdata",package = "Siane")) # Registering a sample of Siane
+shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Loading the municipality's map of Spain
+plot(shp) # Plot the map
+}

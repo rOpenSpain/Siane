@@ -1,9 +1,8 @@
-#' @importFrom "maptools"  leglabs
-#' @importFrom "rgdal" readOGR
-#' @importFrom "RColorBrewer" brewer.pal
-#' @importFrom "plyr" join
-#' @importFrom "classInt" classIntervals
-#' @importFrom "raster" plot
+#' @import "maptools"  
+#' @import "RColorBrewer" 
+#' @import "plyr"
+#' @import "classInt"
+#' @import "raster" 
 #' 
 #' 
 #' @title Plot a map
@@ -16,6 +15,25 @@
 #' @param n : The number of breaks in the pallete. 
 #' @param style : The way the breaks are numerically distributed.
 
+#' @examples
+#' obj <- register_siane(system.file("extdata",package = "Siane"))
+#' shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Loading the municipality's map of Spain
+#' plot(shp) # Plot the map
+#' df <- read.csv(system.file("extdata","sampleRiojaPopulation.csv",package = "Siane"))
+#' by <- "codes"
+#' df[[by]] <- sapply(df$Municipios,function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
+#' year <- 2016
+#' df$Periodo <- as.numeric(as.character(df$Periodo))
+#' df <- df[df$Sex == "Total" & df$Periodo == year, ]
+#' value <- "value"
+#' level <- "Municipios"
+#' shp_merged <- siane_merge(shp = shp, df = df,by = by, level = level, value = value)
+#' plot(shp_merged)
+#' Use the function siane_plot to plot coloured polygons 
+#' siane_plot(shp = shp_merged, x = "bottomright", main = "Population of La Rioja")
+#'  
+#'  
+#'  
 
 
 #' @details - \code{shp} is a S4 object returned by the \code{siane_merge} function . \cr
