@@ -17,7 +17,7 @@
 #' level <- "Municipios"
 #' shp_merged <- siane_merge(shp = shp, df = df,by = by, level = level, value = value)
 #' plot(shp_merged)
-#'  # Use the function siane_plot to plot coloured polygons 
+#'  
 
 
 
@@ -29,10 +29,14 @@
 #' @param value : The statistical values's we want to plot. Only one value per territory. 
 
 #' @details - \code{shp} is a S4 object returned by the \code{siane_map} function. \cr
-#' - \code{df} is a data frame. This data frame should have at least two columns: one column of statistical data and another column of territorial codes. 
+#' - \code{df} is a data frame. This data frame should have at least two columns:
+#'  one column of statistical data and another column of territorial codes. 
 #' There will be as many missing territories as missing codes in the dataframe. \cr
-#' - \code{by} is the dataframe's codes column. These codes should be the INE's official codes. \cr 
-#' - For the \code{level} parameter you pick one of these: "Municipios", "Provincias", "Comunidades" . It's very important that this level is consistent with the S4 object level. \cr
+#' - \code{by} is the dataframe's codes column. These codes should be the
+#'  INE's official codes. \cr 
+#' - For the \code{level} parameter you pick one of these: "Municipios",
+#'  "Provincias", "Comunidades" . It's very important that this level
+#'   is consistent with the S4 object level. \cr
 #' - \code{value} is the name of the column with the statistical values
 #' 
 #' 
