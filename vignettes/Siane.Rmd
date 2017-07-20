@@ -26,7 +26,7 @@ library(RColorBrewer)
 Siane consists of a collection of maps. This package needs to locate the path of this folder in order to search the requested map.
 
 ```{r}
-obj <- register_siane("/home/ncarvalho/Descargas/")
+obj <- register_siane(system.file("extdata",package = "Siane"))
 ```
 
 ## Loading a map
@@ -39,7 +39,6 @@ These parameters are enough to specify a map.
   - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000 `scale <- "3m" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m"`.
 
 ```{r}
-obj <- "/home/ncarvalho/Descargas"
 level <- "Municipios"
 canarias <- FALSE
 year <- 2016
@@ -67,14 +66,9 @@ The spanish political map looks just like this.  Let's try to plot some data on 
 
 #### Data frame reading 
 
-Set the path of the INE data file. It should be in the pc-axis format.
-```{r}
-ine_path <- "/home/ncarvalho/Descargas/2879.px"
-```
-
 Let's explore the dataset before plotting the data
 ```{r}
-df <- as.data.frame(read.px(ine_path))
+df <- adf <- read.csv(system.file("extdata","sampleRiojaPopulation.csv",package = "Siane"))
 names(df) # List the column names  of the data frame
 ```
 
@@ -145,8 +139,7 @@ siane_plot(shp = shp_merged, x = "bottomright")
 #### Other examples
 
 ```{r}
-ine_path <- "/home/ncarvalho/Descargas/2852.px"
-df <- as.data.frame(read.px(ine_path))
+df <- read.csv(system.file("extdata","sampleSpainPopulation.csv",package = "Siane"))
 names(df) # List the column names  of the data frame
 ```
 
@@ -226,7 +219,7 @@ shp <- siane_map(obj = obj, canarias = FALSE, year = 2016,level = "Municipios" ,
 
 Reading the data
 ```{r}
-ine_path <- "/home/ncarvalho/Descargas/00008001.px"
+ine_path <- read.csv(system.file("extdata","sampleBarcelonaAges.csv",package = "Siane"))
 df <- as.data.frame(read.px(ine_path))
 df <- as.data.table(df)
 ```
