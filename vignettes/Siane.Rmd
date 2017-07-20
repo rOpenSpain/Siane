@@ -219,8 +219,7 @@ shp <- siane_map(obj = obj, canarias = FALSE, year = 2016,level = "Municipios" ,
 
 Reading the data
 ```{r}
-ine_path <- read.csv(system.file("extdata","sampleBarcelonaAges.csv",package = "Siane"))
-df <- as.data.frame(read.px(ine_path))
+df <- read.csv(system.file("extdata","sampleBarcelonaAges.csv",package = "Siane"))
 df <- as.data.table(df)
 ```
 
