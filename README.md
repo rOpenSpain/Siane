@@ -61,11 +61,13 @@ These parameters will define the selected map.
   - `canarias` : It indicates whether we want to plot Canarias or not.  
   - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".  
   - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000  `scale <- "3m" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m"`.  
+  - `peninsula`: It's the relative position of the Canarias island to the peninsulae. 
+
 
 Now we call the `siane_map` function to extract and read a map from the entire map's collection.
 
 ```
-shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Reading the map from the maps collection 
+shp <- siane_map(obj = obj, level = "Municipios", canarias = TRUE, peninsula = "close") # Reading the map from the maps collection 
 ```
 
 You will be able to read the map from previous years.
@@ -77,7 +79,7 @@ shp_2011 <- siane_map(obj = obj, level = "Municipios", canarias = FALSE, year = 
 
 #### Plot the map
 
-Did it get the map worked?  
+
 
 ```
 raster::plot(shp)

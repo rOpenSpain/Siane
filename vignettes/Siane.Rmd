@@ -26,7 +26,7 @@ library(RColorBrewer)
 Siane consists of a collection of maps. This package needs to locate the path of this folder in order to search the requested map.
 
 ```{r}
-obj <- register_siane(system.file("extdata",package = "Siane"))
+obj <- register_siane("/home/ncarvalho/Descargas/")
 ```
 
 ## Loading a map
@@ -37,18 +37,20 @@ These parameters are enough to specify a map.
   - `canarias` : It indicates whether we want to plot Canarias or not.  
   - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".  
   - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000 `scale <- "3m" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m"`.
+  - `peninsula`: It's the relative position of the Canarias island to the peninsulae.
 
 ```{r}
 level <- "Municipios"
-canarias <- FALSE
+canarias <- TRUE
 year <- 2016
 scale <- "3m"
+peninsula <- "close"
 ```
 
 Now we call the `siane_map` function to extract a map from all the map's collection.
 
 ```{r}
-shp <- siane_map(level = level, obj = obj, year = year, scale = scale) # Reading the map from the maps collection
+shp <- siane_map(level = level, obj = obj, canarias = canarias, year = year, scale = scale, peninsula = peninsula) # Reading the map from the maps collection
 ```
 
 ## Plot the map
@@ -68,7 +70,7 @@ The spanish political map looks just like this.  Let's try to plot some data on 
 
 Let's explore the dataset before plotting the data
 ```{r}
-df <- adf <- read.csv(system.file("extdata","sampleRiojaPopulation.csv",package = "Siane"))
+df <- as.data.frame(read.px("/home/ncarvalho/Descargas/2879.px"))
 names(df) # List the column names  of the data frame
 ```
 
@@ -139,7 +141,7 @@ siane_plot(shp = shp_merged, x = "bottomright")
 #### Other examples
 
 ```{r}
-df <- read.csv(system.file("extdata","sampleSpainPopulation.csv",package = "Siane"))
+df <- as.data.frame(read.px("/home/ncarvalho/Descargas/2852.px"))
 names(df) # List the column names  of the data frame
 ```
 
@@ -219,7 +221,7 @@ shp <- siane_map(obj = obj, canarias = FALSE, year = 2016,level = "Municipios" ,
 
 Reading the data
 ```{r}
-df <- read.csv(system.file("extdata","sampleBarcelonaAges.csv",package = "Siane"))
+df <- as.data.frame(read.px("/home/ncarvalho/Descargas/00008001.px"))
 df <- as.data.table(df)
 ```
 
