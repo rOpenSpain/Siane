@@ -4,7 +4,7 @@
 #' @description A function that validates the path of Siane maps
 
 #' @examples
-#' obj <- register_siane(system.file("extdata",package = "Siane"))
+#' obj <- register_siane("/home/ncarvalho/Downloads/")
 
 
 #' @param path : The path of the folder that contains the folder SIANE_CARTO_BASE_S_3M and the folder SIANE_CARTO_BASE_S_6M5.
