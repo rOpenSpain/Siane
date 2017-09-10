@@ -4,9 +4,10 @@
 #' @description A function that returns a S4 object(map) of a Spain specific map
 
 #' @examples
+#' \dontrun{
 #' obj <- register_siane("/home/ncarvalho/Downloads/") # Registering a sample of Siane
 #' shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE, peninsula = "close") # Loading the municipality's map of Spain
-#' plot(shp) # Plot the map
+#' plot(shp) # Plot the map}
 
 
 #' @param obj : Path to the Siane maps.

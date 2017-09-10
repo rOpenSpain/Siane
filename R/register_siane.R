@@ -2,9 +2,9 @@
 #' @export 
 #' @title Register the map's path
 #' @description A function that validates the path of Siane maps
-
 #' @examples
-#' obj <- register_siane("/home/ncarvalho/Downloads/")
+#' \dontrun{
+#' obj <- register_siane("/home/ncarvalho/Downloads/")}
 
 
 #' @param path : The path of the folder that contains the folder SIANE_CARTO_BASE_S_3M and the folder SIANE_CARTO_BASE_S_6M5.

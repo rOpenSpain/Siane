@@ -33,12 +33,12 @@ get_dir <- function(base_path, dirs_path,last_path, year){
       vec_split <- sapply(vec, function(x) strsplit(x = x, "\\.")[[1]][1]) # Get the name of the file without the extension
       logic_vector <- vec_split == last_path # Comparing it to the name of the file we are looking for
       
-      if(TRUE %in% logic_vector){ # If it is positive we have found the file
+      if(TRUE %in% logic_vector){ # If it's positive, we have found the file
         final_dir <- each_dir # Declare a variable of the dir
         
         break
       }
     }
   }
-  return(final_dir)
+  return(final_dir) # return directory
 }

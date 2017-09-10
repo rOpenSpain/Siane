@@ -43,6 +43,7 @@ library(devtools)
 install_github("Nuniemsis/Siane")
 library(pxR) # install.packages("pxR")
 library(Siane)
+library(RColorBrewer)
 ```
 
 Siane consists of a collection of maps. This package needs to locate the path of this folder in order to search the requested map. The `obj` variable should contain the path of the maps we are using.
@@ -170,12 +171,62 @@ Merge statistical and spatial data.
 shp_merged <- siane_merge(shp = shp, df = df, by = by, level = level,value = value)
 ```
 
-Plot the map with the statistical data with the `siane_plot` function.
+
+We can plot the map with the `plot` function.
+The `RColorBrewer` package provides lots of colour scales. We can use this colour scales to visualize data over the map.
+The following function displays all the colour scales from that package.
+
+
+In case we want to plot the population of certain municipalities in a province, we must use a sequential pallete.
 
 ```
-siane_plot(shp = shp_merged, df = df, by = by,
-            level = level, value = value , x = "bottomright")
+pallete_colour <- "OrRd" # Scale of oranges and reds
+
 ```
+
+
+Let's say that `n` is the number of colour intervals.
+```
+n <- 5
+```
+
+
+The brewer.pal function builds a pallete with `n` intervals and the `pallete_colour` colour.
+```
+values_ine <- shp_merged@data[[value]] # Values we want to plot are stored in the shape@data data frame
+colors <- brewer.pal(n, pallete_colour) # A pallete from RColorBrewer 
+
+```
+
+
+The style is the distribution of colour within a numerical range. The `classIntervals` function generates numerical intervals. The upper and lower limits of these intervals are named breaks.
+```
+style <- "quantile" 
+brks <- classIntervals(values_ine, n = n, style = style)
+my_pallete <- brks$brks # my_pallete is a vector of breaks
+```
+
+Match each number with its corresponding interval to be able to decide its colour.
+```
+col <- colors[findInterval(values_ine, my_pallete,
+                           all.inside=TRUE)] # Setting the final colors
+```
+
+
+Plot the map and set title and legends.
+
+```
+
+raster::plot(shp_merged,col = col) # Plot the map
+title_plot <- "Población total por municipios en La Rioja"
+
+title(main = title_plot)
+legend(legend = leglabs(round(my_pallete)), fill = colors,x = "bottomright")
+```
+
+
+
+
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_7.png)
 
   
@@ -239,35 +290,40 @@ by <- "codes"
 shp_merged <- siane_merge(shp = shp, df = df, by = by, value = value)
 ```
 
-Setting the plot options.
 
-```
+#### Plot the map.
+
+
+```{r, fig.width = 7, fig.height = 7, eval = FALSE}
 pallete_colour <- "BuPu"
-n <- 5
+n <- 7
 style <- "kmeans"
-plot_title <- "Population"
-subtitle <- "Data source: INE | Maps source: IGN"
+
+
+values_ine <- shp_merged@data[[value]] # Values we want to plot are stored in the shape@data data frame
+colors <- brewer.pal(n, pallete_colour) # A pallete from RColorBrewer 
+
+
+brks <- classIntervals(values_ine, n = n, style = style)
+my_pallete <- brks$brks
+
+
+col <- colors[findInterval(values_ine, my_pallete,
+                           all.inside=TRUE)] # Setting the final colors
+
+
+raster::plot(shp_merged,col = col) # Plot the map
+
+title_plot <- "Población de España a nivel de provincias"
+
+title(main = title_plot)
+legend(legend = leglabs(round(my_pallete)), fill = colors,x = "bottomright")
+
+
 ```
 
 
-These are the basic options that you have to set to make the plot.  
-- `n` is the number of breaks(optional).  
-- `style` is a string that indicates the distribution of the bins(optional).  
-- `pallete_colour` is a RColorBrewer(famous colours package) pallete.  
-Run this line of code to view more colour options. There three sets of colours
 
-Other parameters:
 
-- `x` : Is the position of the legend
-
-There are also additional parameters that affect the legend function. Check `?legend` and `?title` for more information.
-
-#### Plot the map
-
-```
-siane_plot(shp = shp_merged, pallete_colour = pallete_colour, n = n, style = style,
-            main = plot_title, sub = subtitle, title = "Inhabitants",  x = "bottomright",
-            y = 0.10 ,bty = "n")
-```
 ![Image](https://raw.githubusercontent.com/Nuniemsis/Siane/master/Images/image_8.png)
 

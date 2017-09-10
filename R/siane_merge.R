@@ -4,6 +4,7 @@
 #' 
 
 #' @examples
+#' \dontrun{
 #' library(pxR)
 #' obj <- register_siane("/home/ncarvalho/Downloads/")
 #' shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Loading the municipality's map of Spain
@@ -17,7 +18,7 @@
 #' value <- "value"
 #' level <- "Municipios"
 #' shp_merged <- siane_merge(shp = shp, df = df,by = by, level = level, value = value)
-#' plot(shp_merged)
+#' plot(shp_merged)}
 #'  
 
 

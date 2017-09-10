@@ -36,10 +36,12 @@ There will be as many missing territories as missing codes in the dataframe. \cr
 - \code{value} is the name of the column with the statistical values
 }
 \examples{
-obj <- register_siane(system.file("extdata",package = "Siane"))
+\dontrun{
+library(pxR)
+obj <- register_siane("/home/ncarvalho/Downloads/")
 shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Loading the municipality's map of Spain
 plot(shp) # Plot the map
-df <- read.csv(system.file("extdata","sampleRiojaPopulation.csv",package = "Siane"))
+df <- as.data.frame(read.px("/home/ncarvalho/Downloads/2879.px"))# Get this file in INE's website. Check the README to learn how to do it.
 by <- "codes"
 df[[by]] <- sapply(df$Municipios,function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
 year <- 2016
@@ -48,6 +50,6 @@ df <- df[df$Sex == "Total" & df$Periodo == year, ]
 value <- "value"
 level <- "Municipios"
 shp_merged <- siane_merge(shp = shp, df = df,by = by, level = level, value = value)
-plot(shp_merged)
+plot(shp_merged)}
  
 }

@@ -9,10 +9,29 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-In this document I will describe and make use of the main functions of this package. The first step is to load the package. Uncomment the first two lines of code in case you haven't installed the package yet.
 
+## Introduction
 
-```{r, warning = FALSE, message = FALSE}
+[Siane](https://github.com/Nuniemsis/Siane/) (El Sistema de Información del Atlas Nacional de España) is a project that supports technologically the publications and productions of the National Spanish Atlas(ANE). Recently, this project released CARTOSIANE, a set of maps compatible with the National Institute of Statistics georreferenced data(INE).
+The aim of this package is to create useful functions that plot INE's georreferenced data on Siane map's polygons.  
+
+Siane collects maps from five different scales(1:3M, 1:6.5M, 1:10M, 1:14M, 1:60M). The scope of this project covers the first two scales, i.e, 1:3M and 1:6.5M. The remaining scales represent the countries globally. We are not using those scales. This project focuses only in spanish maps.  
+
+Each set of maps is downloaded individually. [The README.md](https://github.com/Nuniemsis/Siane/) file has very detailed information about the downloading process.
+
+```
+SIANE_CARTO_BASE_E_14M.ZIP  
+SIANE_CARTO_BASE_S_10M.ZIP  	  
+SIANE_CARTO_BASE_S_3M.ZIP
+SIANE_CARTO_BASE_S_6M5.ZIP
+SIANE_CARTO_BASE_W_60M.ZIP  
+```
+
+This package needs SIANE_CARTO_BASE_S_3M.ZIP and SIANE_CARTO_BASE_S_6M5.ZIP files.
+
+In this document I will describe and make use of the main functions of this package. The first step is to load the package. Uncomment the first two  code lines in case you haven't installed the package yet.  
+
+```{r, warning = FALSE, message = FALSE , eval = FALSE}
 #library(devtools)
 #install_github("Nuniemsis/Siane")
 library(Siane)
@@ -23,9 +42,9 @@ library(RColorBrewer)
 
 ## Setting the path of the maps
 
-Siane consists of a collection of maps. This package needs to locate the path of this folder in order to search the requested map.
+As I already explained, Siane consists of a collection of maps. This package needs to locate the path of this collection(folder) in order to search the requested map.
 
-```{r}
+```{r, eval = FALSE}
 obj <- register_siane("/home/ncarvalho/Descargas/")
 ```
 
@@ -33,13 +52,13 @@ obj <- register_siane("/home/ncarvalho/Descargas/")
 
 Once we have located all the maps we can select one according with our data.
 These parameters are enough to specify a map.  
-  - `year` : Maps change over time. By now, The territories affected by the changes are just the municipalities(Municipios).  
-  - `canarias` : It indicates whether we want to plot Canarias or not.  
-  - `level` : It is the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades".  
-  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000 `scale <- "3m" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m"`.
-  - `peninsula`: It's the relative position of the Canarias island to the peninsulae.
+  - `year` : Maps can change over time. This numerical parameter is the year of the map we want.  
+  - `canarias` : It indicates whether we want to plot Canarias or not.
+  - `level` : It's the administrative level. For this set of maps there are three: "Municipios", "Provincias" and "Comunidades"  
+  - `scale` : The scale of the maps. The default scale for municipalities is 1:3000000 `scale <- "3m" `. For provinces and regions the default scale is 1:6500000 `scale <- "6m"`.  
+  - `peninsula`: It's the relative position of the Canarias island to the peninsulae.  
 
-```{r}
+```{r, eval = FALSE}
 level <- "Municipios"
 canarias <- TRUE
 year <- 2016
@@ -49,17 +68,31 @@ peninsula <- "close"
 
 Now we call the `siane_map` function to extract a map from all the map's collection.
 
-```{r}
+```{r, eval = FALSE}
 shp <- siane_map(level = level, obj = obj, canarias = canarias, year = year, scale = scale, peninsula = peninsula) # Reading the map from the maps collection
 ```
 
 ## Plot the map
 
-Did it worked?
-
-```{r,fig.show='hold', fig.width = 5, fig.height = 5}
+```{r,fig.show='hold', fig.width = 5, fig.height = 5, message=FALSE, eval = FALSE}
 raster::plot(shp)
 ```
+
+This function also allows the user to change the position of Canarias islands through the peninsula parameter. 
+
+```{r, eval = FALSE}
+
+peninsula <- "far"
+
+shp <- siane_map(level = level, obj = obj, canarias = canarias, year = year, scale = scale, peninsula = peninsula) # Reading the map from the maps collection
+```
+
+
+```{r,fig.show='hold', fig.width = 5, fig.height = 5, message=FALSE, eval = FALSE}
+raster::plot(shp)
+```
+
+
 
 The spanish political map looks just like this.  Let's try to plot some data on it. To keep following this tutorial you should download previously the data from the INE website. The README.md file explains how to download it. I will also share the [link](http://www.ine.es/jaxiT3/Tabla.htm?t=2879) here in case you already now how to do it.
 
@@ -69,7 +102,7 @@ The spanish political map looks just like this.  Let's try to plot some data on 
 #### Data frame reading 
 
 Let's explore the dataset before plotting the data
-```{r}
+```{r, eval = FALSE}
 df <- as.data.frame(read.px("/home/ncarvalho/Descargas/2879.px"))
 names(df) # List the column names  of the data frame
 ```
@@ -81,87 +114,134 @@ First we need to understand the data frame. It's columns are the following:
 - `value` is a column with the numeric value of the population.  
 - `Sexo` is the sex of that population.  
 - `Municipios` is a character array with the municipality name and the municipality code
-In this dataset there is only one value per territory.
+In this dataset there is only one value per territory.  
 
 Split the `Municipios` column to get the municipality's codes.  
-We are storing the codes in the column `codes`. This column is really important in order to plot the polygons with the correct colours. 
+We are storing these codes in the column `codes`. This column is really important in order to plot the polygons with the corresponding colour colours. 
 
 
 #### Data frame preparation 
 
-```{r}
+```{r, eval = FALSE}
 by <- "codes"
 ```
 
 We create a single column in the data frame with those codes.
-```{r}
+```{r, eval = FALSE}
 df[[by]] <- sapply(df$Municipios,
                    function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
 ```
 
-```{r}
-df$Periodo <- as.numeric(as.character(df$Periodo))
+```{r, eval = FALSE}
+df$Periodo <- as.numeric(as.character(df$Periodo)) # Convert factor to numeric
 ```
 
 Plotting polygons by colour intensity requires one unique value per territory.
 Therefore, we have to filter the data frame.  
-Keep this __Golden rule__: One value per territory.  
+__Remember__: One value per territory.  
 In this example I want to plot the total population in the year 2016.   
-```{r}
+```{r, eval = FALSE}
 df <- df[df$Sex == "Total" & df$Periodo == year, ]
 ```
 
-These are the basic options that you have to set to make the plot.  
-- `n` is the number of breaks(optional).  
-- `style` is a string that indicates the distribution of the bins(optional).
-- `value` is the column name that contains the statistical information you want to plot(required).
-- `by` is the column name for the territory codes(required).
-- `title` is the plot title(optional).
-- `pallete_colour` is a RColorBrewer(famous colours package) pallete.  
-Run this line of code to view more colour options. There three sets of colours  
-```{r, fig.width = 8, fig.height = 7}
-display.brewer.all()
-```
-Plot the map with the statistical data with the `siane_plot` function.
+The `siane_merge` function assigns each polygon a value. Those values are stored in a column of `shp_merged@data` which name can be chosen by the user changing the `value` variable.
 
-```{r}
-by <- "codes"
-title_plot <- "Población total por municipios en Zaragoza"
-value <- "value"
+```{r, eval = FALSE}
+by <- "codes" # name for the codes column
+value <- "value" # name for the values column
 
 shp_merged <- siane_merge(shp = shp, df = df,by = by, level = level, value = value)
 
 ```
 
 
-```{r, fig.show='hold', fig.width=7, fig.height = 6}
-siane_plot(shp = shp_merged, x = "bottomright")
+We can plot the map with the statistical data with the `plot` function.
+The `RColorBrewer` package provides lots of colour scales. We can use this colour scales to visualize data over the map.
+The following function displays all the colour scales from that package.
+
+
+```{r, fig.width = 8, fig.height = 7, eval = FALSE}
+display.brewer.all()
 ```
+
+Match each number with its corresponding interval to be able to decide its colour.
+```{r, eval = FALSE}
+col <- colors[findInterval(values_ine, my_pallete,
+                           all.inside=TRUE)] # Setting the final colors
+```
+
+In case we want to plot the population of certain municipalities in a province, we must use a sequential pallete.
+
+```{r, eval = FALSE}
+pallete_colour <- "OrRd" # Scale of oranges and reds
+
+```
+
+
+Let's say that `n` is the number of colour intervals.
+```{r, eval = FALSE}
+n <- 5
+```
+
+
+The brewer.pal function builds a pallete with `n` intervals and the `pallete_colour` colour.
+```{r, eval = FALSE}
+values_ine <- shp_merged@data[[value]] # Values we want to plot are stored in the shape@data data frame
+colors <- brewer.pal(n, pallete_colour) # A pallete from RColorBrewer 
+
+```
+
+
+The style is the distribution of the colour within data. The `classIntervals` function generates numerical intervals. The upper and lower limits of these intervals are named breaks.
+```{r, eval = FALSE}
+style <- "quantile" 
+brks <- classIntervals(values_ine, n = n, style = style)
+my_pallete <- brks$brks # my pallete contains the breaks
+```
+
+
+Plot the map and set title and legends.
+
+```{r, fig.width = 8, fig.height = 7, eval = FALSE}
+
+raster::plot(shp_merged,col = col) # Plot the map
+title_plot <- "Población total por municipios en La Rioja"
+
+title(main = title_plot)
+legend(legend = leglabs(round(my_pallete)), fill = colors,x = "bottomright")
+```
+
+
+
 
 #### Other examples
 
-```{r}
+Let's try to plot data at a different administrative level. The next dataset collects the spanish population for all the provinces in a specific range of years. You can find the link in the README.MD file as well. [Link here](http://www.ine.es/jaxiT3/Tabla.htm?t=2852&L=0)
+
+The process is almost the same as the previous one.
+
+```{r, eval = FALSE}
 df <- as.data.frame(read.px("/home/ncarvalho/Descargas/2852.px"))
 names(df) # List the column names  of the data frame
 ```
 
-Let's try with a different dataset. This dataset has the spanish population for all the provinces.You can find the link in the README.MD file as well. [Link here](http://www.ine.es/jaxiT3/Tabla.htm?t=2852&L=0)
-```{r}
+
+```{r, eval = FALSE}
 df[[by]] <- sapply(df$Provincias,
                    function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
 ```
 
-```{r}
+```{r, eval = FALSE}
 df$Periodo <- as.numeric(as.character(df$Periodo))
 ```
 
-```{r}
+```{r, eval = FALSE}
 df <- df[df$Sex == "Total" & df$Periodo == year,]
 ```
 
-Remember that first we have to create the shapefile. We can't use the previous shapefile provided that the level has changed.
+Remember that first we have to create the shapefile. We can't use the previous shapefile provided that the level is not the same.
 
-```{r}
+```{r, eval = FALSE}
 level <- "Provincias"
 canarias <- FALSE
 year <- 2016
@@ -170,75 +250,91 @@ scale <- "6m"
 
 Generate the map again.  
 
-```{r, message = FALSE}
+```{r, message = FALSE, eval = FALSE}
 shp <- siane_map(obj = obj, canarias = canarias, year = year, level = level, scale = scale)
 ```
-###### Map options
 
-
-```{r}
+```{r, eval = FALSE}
 value <- "value"
 by <- "codes"
 ```
 
 
-```{r}
+```{r, eval = FALSE}
 shp_merged <- siane_merge(shp = shp, df = df, by = by, level = level, value = value)
 ```
 
 
 #### Plot the map.
 
-```{r, fig.width = 7, fig.height = 7}
+
+```{r, fig.width = 7, fig.height = 7, eval = FALSE}
 pallete_colour <- "BuPu"
-n <- 8
+n <- 7
 style <- "kmeans"
 
 
-siane_plot(shp = shp_merged, 
-           pallete_colour = pallete_colour, n = n, style = style,
-            main = "Population", sub = "Fuente:INE", y = 0.20, x = 'bottomright',
-            bty = "n", x.intersp = .2, y.intersp = .8)
+values_ine <- shp_merged@data[[value]] # Values we want to plot are stored in the shape@data data frame
+colors <- brewer.pal(n, pallete_colour) # A pallete from RColorBrewer 
+
+
+brks <- classIntervals(values_ine, n = n, style = style)
+my_pallete <- brks$brks
+
+
+col <- colors[findInterval(values_ine, my_pallete,
+                           all.inside=TRUE)] # Setting the final colors
+
+
+raster::plot(shp_merged,col = col) # Plot the map
+
+title_plot <- "Población de España a nivel de provincias"
+
+title(main = title_plot)
+legend(legend = leglabs(round(my_pallete)), fill = colors,x = "bottomright")
+
+
 
 
 ```
 
 
-## Combining Siane with another libraries
+## Combining Siane with other libraries
 
 Please download this data [link](http://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p05/a2002/l0/&file=00008001.px&L=0). This dataset contains the number of inhabitants of Barcelona's municipalities per five year age groups.
 We are now trying to combine leaflet library with Siane to make a higher quality visualization. 
+In this visualization I will plot the percentage of girls whose ages are in the range of 0-4 years.
 
-```{r}
+```{r, message = FALSE, warning = FALSE, eval = FALSE}
 library(leaflet)
 library(data.table)
 ```
 
 Reading the map
-```{r}
+```{r, eval = FALSE}
 shp <- siane_map(obj = obj, canarias = FALSE, year = 2016,level = "Municipios" ,scale = "3m")
 ```
 
 Reading the data
-```{r}
+```{r, eval = FALSE}
 df <- as.data.frame(read.px("/home/ncarvalho/Descargas/00008001.px"))
 df <- as.data.table(df)
 ```
 
 Calculating the sum of the inhabitants of all ages per sex.
-```{r}
+```{r, eval = FALSE}
 df_sum <- df[, sum(value),by = c("Municipios", "Sexo") ]
 ```
 
 Calculating the percentage of each group of age per municipality and gender
-```{r}
+```{r, eval = FALSE}
 df_withsums <- merge(df, df_sum, by = c("Municipios","Sexo"))
-df_withsums$perc <- df_withsums$value/df_withsums$V1
+df_withsums$perc <- df_withsums$value/df_withsums$V1*100
 ```
 
 Filtering the data: Women with 0-4 years old.
 
-```{r}
+```{r, eval = FALSE}
 
 df_withsums <- df_withsums[df_withsums$Sexo=="Mujeres"&
                            df_withsums$Edad..grupos.quinquenales.=="0-4"]
@@ -246,7 +342,7 @@ df_withsums <- df_withsums[df_withsums$Sexo=="Mujeres"&
 
 
 Extracting the territory code for all the municipalities
-```{r}
+```{r, eval = FALSE}
 by <- "codes"
 value <- "perc"
 
@@ -256,29 +352,31 @@ df_withsums[[by]] <- sapply(df_withsums$Municipios,
 ```
 
 
-Mergind spatial data and statistical data.
+Merging spatial data and statistical data.
 
-```{r}
+```{r, eval = FALSE}
 shp_merged <- siane_merge(shp = shp, df = df_withsums, by = by,value = value, level = "Municipios")
 ```
 
-This leaflet code is available [here](https://rstudio.github.io/leaflet/shapes.html)
+Plot the data
+```{r , fig.width = 7, fig.height = 7, eval = FALSE, message = FALSE, warning = FALSE}
+pal <- colorNumeric(palette = "YlOrRd", domain = shp_merged@data$perc)
 
-```{r}
+leaflet(shp_merged) %>%  # 
+  addTiles() %>%    # Add the world map 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,  # options
+    opacity = 1.0, fillOpacity = 0.5, # options
+    fillColor = ~colorQuantile("YlOrRd", perc)(perc), # Choose the scale, Choose the column to plot
+    highlightOptions = highlightOptions(color = "white", weight = 2, # options
+      bringToFront = TRUE)) %>%# options
 
-leaflet(shp_merged) %>% 
-  addTiles() %>%
-  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
-    opacity = 1.0, fillOpacity = 0.5,
-    fillColor = ~colorQuantile("YlOrRd", perc)(perc),
-    highlightOptions = highlightOptions(color = "white", weight = 2,
-      bringToFront = TRUE))
-
+  addLegend("bottomright", pal = pal, values = shp_merged$perc , title = "Porcentaje de mujeres con 0-4 anyos", opacity = 1)
 
 
 
 ```
 
+This leaflet documentation is available [here](https://rstudio.github.io/leaflet/shapes.html)
 
 
 

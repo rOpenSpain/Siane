@@ -4,7 +4,7 @@
 \alias{siane_map}
 \title{Loads a spanish map}
 \usage{
-siane_map(obj, canarias, year, level, scale)
+siane_map(obj, canarias, year, level, scale, peninsula)
 }
 \arguments{
 \item{obj}{: Path to the Siane maps.}
@@ -16,6 +16,8 @@ siane_map(obj, canarias, year, level, scale)
 \item{level}{: Is a string that represents the administrative level.}
 
 \item{scale}{: It's the scale of the map.}
+
+\item{peninsula}{: Parameter that specificates the layout of Canarias islands.}
 }
 \value{
 A S4 object specified by the user
@@ -30,10 +32,12 @@ A function that returns a S4 object(map) of a Spain specific map
 - The \code{year} variable should be numeric. If the map is not available for that year, the loaded map will be the latest available map. \cr
 The default value for the year is the latest year in which the maps are available. \cr 
 - The \code{scale} of the maps can be 1:3000000 or 1:6500000. The corresponding values for the \code{scale} variable are "3m" and "6m". \cr
-The default value for the municipalities maps is \code{scale <- "3m"} . The default value for the other maps is \code{scale <- "6m"}
+The default value for the municipalities maps is \code{scale <- "3m"} . The default value for the other maps is \code{scale <- "6m"} \cr
+#' - The \code{peninsula} variable can take the values "far", "close" and "none".
 }
 \examples{
-obj <- register_siane(system.file("extdata",package = "Siane")) # Registering a sample of Siane
-shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Loading the municipality's map of Spain
-plot(shp) # Plot the map
+\dontrun{
+obj <- register_siane("/home/ncarvalho/Downloads/") # Registering a sample of Siane
+shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE, peninsula = "close") # Loading the municipality's map of Spain
+plot(shp) # Plot the map}
 }

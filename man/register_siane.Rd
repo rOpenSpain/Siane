@@ -16,5 +16,6 @@ It returns the same path as a string.
 A function that validates the path of Siane maps
 }
 \examples{
-obj <- register_siane(system.file("extdata",package = "Siane"))
+\dontrun{
+obj <- register_siane("/home/ncarvalho/Downloads/")}
 }
