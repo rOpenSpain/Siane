@@ -94,7 +94,7 @@ Please, specify the path INE's data path.
 
 #### Data frame reading 
 
-Set the path of the INE data file. It should be in the pc-axis format.
+Set the path of the INE data file. I downloaded it has a pc-axis file.
 ```
 ine_path <- "/Users/nunoc/Downloads/2879.px"
 ```
