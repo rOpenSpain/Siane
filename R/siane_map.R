@@ -1,4 +1,7 @@
 #' @import "rgdal"
+#'@importFrom raster shift extent bind
+#'@importFrom sp proj4string proj4string<-
+#'@importFrom methods as
 #'@title Loads a spanish map 
 #'
 #' @description A function that returns a S4 object(map) of a Spain specific map
@@ -60,15 +63,15 @@ siane_map <- function(obj, canarias, year, level, scale, peninsula){
     shp_peninsula <- siane_map_piece(obj = obj, canarias = FALSE, level = level, scale = scale) # Loading the municipality's map of Spain
     shp_canarias <- siane_map_piece(obj = obj, canarias = TRUE , level = level, scale = scale) # Canarias True
     
-    shp_canarias_shifted <- raster::shift(shp_canarias, x = 18, y = 8)
+    shp_canarias_shifted <- shift(shp_canarias, x = 18, y = 8)
     shp_total <- bind(shp_peninsula, shp_canarias_shifted)
     
     
-    rectangle <- as(raster::extent(-0.5, 5, 11.6, 9), "SpatialPolygons")
+    rectangle <- as(extent(-0.5, 5, 11.6, 9), "SpatialPolygons")
     proj4string(rectangle) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
     
-    shif_rect <- raster::shift(rectangle, y = 26)
-    shp_rect_total <- raster::bind(shif_rect,shp_total)
+    shif_rect <- shift(rectangle, y = 26)
+    shp_rect_total <- bind(shif_rect,shp_total)
     
     return(shp_rect_total)
   }

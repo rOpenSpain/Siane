@@ -5,7 +5,7 @@ Description: A tool that makes the user able to represent spatial data over Spai
   territories. It's main functionality is to bind numerical data to polygons.
   It's only compatible with the spanish IGN(National Institute of Geography) maps
   and the INE(National Institute of Statistics) data.
-Depends: classInt, plyr, raster, rgdal, sp, methods, utils
+Depends: plyr, raster, rgdal, sp, methods, utils
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

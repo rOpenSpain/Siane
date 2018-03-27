@@ -1,5 +1,5 @@
 #' @title Merges data and maps
-#' 
+#'@importFrom plyr join
 #' @description This is a function that binds data to polygons
 #' 
 
