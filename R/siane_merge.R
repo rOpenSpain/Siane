@@ -7,9 +7,11 @@
 #' \dontrun{
 #' library(pxR)
 #' obj <- register_siane("/home/ncarvalho/Downloads/")
-#' shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Loading the municipality's map of Spain
+#' # Loading the municipality's map of Spain
+#' shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) 
 #' plot(shp) # Plot the map
-#' df <- as.data.frame(read.px("/home/ncarvalho/Downloads/2879.px"))# Get this file in INE's website. Check the README to learn how to do it.
+#' # Get this file in INE's website. Check the README to learn how to do it.
+#' df <- as.data.frame(read.px("/home/ncarvalho/Downloads/2879.px"))
 #' by <- "codes"
 #' df[[by]] <- sapply(df$Municipios,function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
 #' year <- 2016
@@ -52,8 +54,9 @@
 siane_merge <- function(shp, df, by, level, value){
   stop_advices(df, by, value) # Stop sentences for column names: Values column and codes column.
   
-  shp_code <- shp_code(level) # The shape file column that contains the code depends on the level. This function returns the code's shp column name 
-  
+  # The shape file column that contains the code depends on the level.
+  #This function returns the code's shp column name 
+  shp_code <- shp_code(level) 
   
   name_filter <- names(df) == by # 
   names(df)[name_filter] <- shp_code # Renaming the column to make the join

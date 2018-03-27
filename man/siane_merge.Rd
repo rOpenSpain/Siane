@@ -39,9 +39,11 @@ There will be as many missing territories as missing codes in the dataframe. \cr
 \dontrun{
 library(pxR)
 obj <- register_siane("/home/ncarvalho/Downloads/")
-shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) # Loading the municipality's map of Spain
+# Loading the municipality's map of Spain
+shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE) 
 plot(shp) # Plot the map
-df <- as.data.frame(read.px("/home/ncarvalho/Downloads/2879.px"))# Get this file in INE's website. Check the README to learn how to do it.
+# Get this file in INE's website. Check the README to learn how to do it.
+df <- as.data.frame(read.px("/home/ncarvalho/Downloads/2879.px"))
 by <- "codes"
 df[[by]] <- sapply(df$Municipios,function(x) strsplit(x = as.character(x), split = " ")[[1]][1])
 year <- 2016

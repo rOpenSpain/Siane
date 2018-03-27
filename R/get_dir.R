@@ -19,7 +19,7 @@ get_dir <- function(base_path, dirs_path,last_path, year){
     
     
     folder_years <- sapply(dirs_path,
-                           function(x) tail(strsplit(x = x,split = "/")[[1]],1)) # If the user introduces a year we try to search for the newest map until that year
+                           function(x) utils::tail(strsplit(x = x,split = "/")[[1]],1)) # If the user introduces a year we try to search for the newest map until that year
     
     
     folder_years_num <- sapply(folder_years,
