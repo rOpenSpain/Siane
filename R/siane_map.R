@@ -67,7 +67,7 @@ siane_map <- function(obj, canarias, year, level, scale, peninsula){
     shp_total <- bind(shp_peninsula, shp_canarias_shifted)
     
     
-    rectangle <- as(extent(-0.5, 5, 11.6, 9), "SpatialPolygons")
+    rectangle <- as(extent(-0.5, 5, 9, 11.6), "SpatialPolygons")
     proj4string(rectangle) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
     
     shif_rect <- shift(rectangle, y = 26)

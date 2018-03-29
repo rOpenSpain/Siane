@@ -40,7 +40,7 @@ Now we are ready to go through the code.
 
 ```
 library(devtools)
-install_github("Nuniemsis/Siane")
+install_github("rOpenSpain/Siane")
 library(pxR) # install.packages("pxR")
 library(Siane)
 library(RColorBrewer)
