@@ -1,9 +1,11 @@
 Package: Siane
 Title: Explore the Spanish INE Data using this Geographic Tool
 Version: 0.1
-Description: A tool that makes the user able to represent spatial data over Spain
-  territories. It's main functionality is to bind numerical data to polygons.
-  It's only compatible with the spanish IGN(National Institute of Geography) maps
+Description: A tool that assists the user in two tasks: the map reading process and the
+  data representation process. The reading process is leveraged with functions that allow
+  the user to find maps in the Siane repository easily, i.e. searching by map year or
+  administrative level. The other main functionality is to bind numerical data to polygons.
+  This package is only compatible with the spanish IGN(National Institute of Geography) maps
   and the INE(National Institute of Statistics) data.
 Depends: plyr, raster, rgdal, sp, methods, utils
 License: MIT + file LICENSE
