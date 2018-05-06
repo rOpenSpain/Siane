@@ -7,7 +7,7 @@ Description: A tool that assists the user in two tasks: the map reading process 
   administrative level. The other main functionality is to bind numerical data to polygons.
   This package is only compatible with the spanish IGN(National Institute of Geography) maps
   and the INE(National Institute of Statistics) data.
-Depends: plyr, raster, rgdal, sp, methods, utils
+Imports: plyr, raster, rgdal, sp, methods, utils
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
