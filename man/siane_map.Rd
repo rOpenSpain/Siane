@@ -38,6 +38,6 @@ The default value for the municipalities maps is \code{scale <- "3m"} . The defa
 \examples{
 \dontrun{
 obj <- register_siane("/home/ncarvalho/Downloads/") # Registering a sample of Siane
-shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE, peninsula = "close") # Loading the municipality's map of Spain
+shp <- siane_map(obj = obj, level = "Municipios", canarias = FALSE, peninsula = "close") 
 plot(shp) # Plot the map}
 }

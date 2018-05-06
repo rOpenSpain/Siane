@@ -1,2 +1,9 @@
-^.*\.Rproj$
-^\.Rproj\.user$
+^.*\.Rproj$         # Automatically added by RStudio,
+^\.Rproj\.user$     # used for temporary files. 
+^README.md$         # An Rmarkdown file used to generate README.md
+Images
+.git
+.gitignore
+RData
+Siane.Rproj
+

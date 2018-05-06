@@ -1,19 +1,20 @@
 Package: Siane
-Title: Siane
+Title: Explore the Spanish INE Data using this Geographic Tool
 Version: 0.1
-Description: Statistic polygon plots of INE data 
-Depends: R (>= 3.3.1)
-License: MIT
+Description: A tool that assists the user in two tasks: the map reading process and the
+  data representation process. The reading process is leveraged with functions that allow
+  the user to find maps in the Siane repository easily, i.e. searching by map year or
+  administrative level. The other main functionality is to bind numerical data to polygons.
+  This package is only compatible with the spanish IGN(National Institute of Geography) maps
+  and the INE(National Institute of Statistics) data.
+Imports: plyr, raster, rgdal, sp, methods, utils
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Authors@R: c(person("Carlos J. Gil Bellosta",
-  email = "cgb@datanalytics.com",role = c("aut","cre")),
-  person("Nuno", "Carvalho", role = c("aut"),
+  email = "cgb@datanalytics.com", role = c("aut")),
+  person("Nuno", "Carvalho", role = c("cre", "aut"),
   email = "nunocarvalhodossantos@gmail.com"))
-Author: Carlos J. Gil Bellosta[aut, cre]
-  Nuno Carvalho[aut]
-Maintainer: Nuno Carvalho <nunocarvalhodossantos@gmail.com>
-Depends: RColorBrewer, classInt, maptools, plyr, raster, rgdal, sp
 RoxygenNote: 6.0.1
 Suggests: knitr,
   rmarkdown
