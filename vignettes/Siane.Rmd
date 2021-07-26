@@ -12,12 +12,12 @@ vignette: >
 
 ## Introduction
 
-[Siane](https://github.com/Nuniemsis/Siane/) (El Sistema de Información del Atlas Nacional de España) is a project that supports technologically the publications and productions of the National Spanish Atlas(ANE). Recently, this project released CARTOSIANE, a set of maps compatible with the National Institute of Statistics georreferenced data(INE).
+[Siane](https://github.com/ropenspain/Siane/) (El Sistema de Información del Atlas Nacional de España) is a project that supports technologically the publications and productions of the National Spanish Atlas(ANE). Recently, this project released CARTOSIANE, a set of maps compatible with the National Institute of Statistics georreferenced data(INE).
 The aim of this package is to create useful functions that plot INE's georreferenced data on Siane map's polygons.  
 
 Siane collects maps from five different scales(1:3M, 1:6.5M, 1:10M, 1:14M, 1:60M). The scope of this project covers the first two scales, i.e, 1:3M and 1:6.5M. The remaining scales represent the countries globally. We are not using those scales. This project focuses only in spanish maps.  
 
-Each set of maps is downloaded individually. [The README.md](https://github.com/Nuniemsis/Siane/) file has very detailed information about the downloading process.
+Each set of maps is downloaded individually. [The README.md](https://github.com/ropenspain/Siane/) file has very detailed information about the downloading process.
 
 ```
 SIANE_CARTO_BASE_E_14M.ZIP  
@@ -33,7 +33,7 @@ In this document I will describe and make use of the main functions of this pack
 
 ```{r, warning = FALSE, message = FALSE , eval = FALSE}
 #library(devtools)
-#install_github("Nuniemsis/Siane")
+#install_github("ropenspain/Siane")
 library(Siane)
 library(pxR)
 library(RColorBrewer)
