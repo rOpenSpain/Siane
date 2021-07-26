@@ -1,21 +1,35 @@
 Package: Siane
 Title: Explore the Spanish INE Data using this Geographic Tool
 Version: 0.1
-Description: A tool that assists the user in two tasks: the map reading process and the
-  data representation process. The reading process is leveraged with functions that allow
-  the user to find maps in the Siane repository easily, i.e. searching by map year or
-  administrative level. The other main functionality is to bind numerical data to polygons.
-  This package is only compatible with the spanish IGN(National Institute of Geography) maps
-  and the INE(National Institute of Statistics) data.
-Imports: plyr, raster, rgdal, sp, methods, utils
+Authors@R: 
+    c(person(given = "Carlos J. Gil Bellosta",
+             role = "aut",
+             email = "cgb@datanalytics.com"),
+      person(given = "Nuno",
+             family = "Carvalho",
+             role = c("cre", "aut"),
+             email = "nunocarvalhodossantos@gmail.com"))
+Description: A tool that assists the user in two tasks: the map reading
+    process and the data representation process. The reading process is
+    leveraged with functions that allow the user to find maps in the Siane
+    repository easily, i.e. searching by map year or administrative level.
+    The other main functionality is to bind numerical data to polygons.
+    This package is only compatible with the spanish IGN(National
+    Institute of Geography) maps and the INE(National Institute of
+    Statistics) data.
 License: MIT + file LICENSE
+Imports: 
+    methods,
+    plyr,
+    raster,
+    rgdal,
+    sp,
+    utils
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 LazyData: true
-Authors@R: c(person("Carlos J. Gil Bellosta",
-  email = "cgb@datanalytics.com", role = c("aut")),
-  person("Nuno", "Carvalho", role = c("cre", "aut"),
-  email = "nunocarvalhodossantos@gmail.com"))
-RoxygenNote: 6.0.1
-Suggests: knitr,
-  rmarkdown
-VignetteBuilder: knitr
+RoxygenNote: 7.1.1
